@@ -15,6 +15,14 @@ var toMarkdown = function(string) {
         return innerHTML ? '\n\n' + innerHTML + '\n' : '';
       }
     },
+    // NANCY EDIT BEGIN
+    {
+      patterns: 'div',
+      replacement: function(str, attrs, innerHTML) {
+        return innerHTML ? '\n\n' + innerHTML + '\n' : '';
+      }
+    },
+    // NANCY EDIT END
     {
       patterns: 'br',
       type: 'void',
