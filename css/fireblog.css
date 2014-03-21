@@ -1,0 +1,36 @@
+.editable div {
+  margin: 0px 0px;
+}
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+}
+textarea {
+  font-family: "consolas", courier; 
+}
+#wysiwyg {
+  margin: 10px 0px;
+  padding: 10px;
+}
+#wysiwyg {
+  margin: 10px 0px;
+}
+.btn-icon {
+  width: 36px;
+}
+.note-editor {
+  border-color: #e7e7e7;
+  border-radius: 4px;
+}
+.note-editor .note-editable {
+  overflow-x: auto;
+  overflow-y: auto;
+}
+.note-editor .note-toolbar {
+  border-bottom-color: #e7e7e7;
+}
