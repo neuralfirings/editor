@@ -3,7 +3,8 @@
   <head>
     <title>Neural Firings Editor</title>
 
-    <script type='text/javascript' src='js/firebase.js'></script>
+    <script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.6/firebase.js'></script>
+    <script type='text/javascript' src='https://cdn.firebase.com/js/simple-login/1.3.0/firebase-simple-login.js'></script>
 
     <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -21,18 +22,109 @@
     <link href="css/fireblog.css" rel="stylesheet">
   </head>
   <body>
-    <div class="container">
 
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Neural Firings Editor</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="javascript:void(0)">Home</a></li>
+            <li>
+              <a id="loginlink" href="javascript:void(0)" style="display:none">Login</a>
+            </li>
+            <li>
+              <a id="signuplink" href="javascript:void(0)" style="display:none">Sign Up</a>
+            </li>
+            <li>
+              <a id="logoutlink" href="javascript:void(0)" style="display:none">Logout</a>
+            </li>
+            <li id="logininfo" style="display:none"></li>
+            <li id="loginform" style="margin-top: 5px; display:none;">
+              <div class="form-inline" role="form">
+                <div class="form-group">
+                  <label class="sr-only" for="login-email">Email address</label>
+                  <input type="email" class="form-control" id="login-email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                  <label class="sr-only" for="exampleInputPassword2">Password</label>
+                  <input type="password" class="form-control" id="login-pw" placeholder="Password">
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input id="login-remember" type="checkbox"> Remember me
+                  </label>
+                </div>
+                <button id="login-button" class="btn btn-default">Sign in</button>
+              </div>
+            </li>
+            <li id="signupform" style="margin-top: 5px; display:none;">
+              <div class="form-inline" role="form">
+                <div class="form-group">
+                  <label class="sr-only" for="signup-email">Email address</label>
+                  <input type="email" class="form-control" id="signup-email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                  <label class="sr-only" for="signup-pw">Password</label>
+                  <input type="password" class="form-control" id="signup-pw" placeholder="Password">
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input id="signup-remember" type="checkbox"> Remember me
+                  </label>
+                </div>
+                <button id="signup-button" class="btn btn-default">Sign Up</button>
+              </div>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
+          <div class="input-group">
+            <input type="text" class="form-control input-lg" id="title" placeholder="Title" data-key="">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" tabindex="-1" style="line-height: 22px; border-radius: 0">
+                Open&nbsp;&nbsp;<span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul id="titlelist" class="dropdown-menu pull-right" role="menu">
+              </ul> 
+              <button type="button" id="savedoc" class="btn btn-default btn-lg" tabindex="-1" style="line-height: 22px">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="margin: 20px 0">
+        <ul class="nav nav-tabs" id="mode-nav">
+          <li><a href="#" id="mode-md">Markdown</a></li>
+          <li><a href="#" id="mode-wys">WYSIWYG</a></li>
+          <li><a href="#" id="mode-html">HTML</a></li>
+          <li class="active"><a href="#" id="mode-all">All</a></li>
+        </ul>
+      </div>
+
+      <div class="row editor-container">
+        <div class="col-md-4 editor">
           <h2>Markdown</h2>
           <textarea id="markdown" class="form-control col-md-5" style="height: 600px"></textarea>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 editor">
           <h2>WYSIWYG</h2>
           <div id="wysiwyg"></div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 editor">
           <h2>HTML</h2>
           <textarea id="html" class="form-control col-md-5" style="height: 600px"></textarea>
         </div>
@@ -42,6 +134,8 @@
       <div>
         <small>Using <a href="https://github.com/chjj/marked">marked.js</a> and <a href="https://github.com/domchristie/to-markdown">to-markdown.js</a> to convert between markdown and html. Using <a href="http://hackerwins.github.io/summernote/">Summernote</a> for WYSIWYG editor. Using <a href="http://getbootstrap.com/">Bootstrap</a> with <a href="http://bootswatch.com/">Bootswatch</a> and <a href="http://fontawesome.io/">Font Awesome</a> for styling. And <a href="http://jquery.com/">jQuery</a> because jQuery.</small>
       </div>
+      <br />
+      <br />
       
     </div><!-- /.container -->
   </body>

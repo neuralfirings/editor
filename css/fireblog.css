@@ -20,6 +20,12 @@ textarea {
 #wysiwyg {
   margin: 10px 0px;
 }
+#html {
+  padding: 10px;
+}
+#markdown {
+  padding: 10px;
+}
 .btn-icon {
   width: 36px;
 }
