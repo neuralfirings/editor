@@ -17,14 +17,21 @@ textarea {
   margin: 10px 0px;
   padding: 10px;
 }
-#wysiwyg {
-  margin: 10px 0px;
-}
 #html {
   padding: 10px;
+  font-size: 22px;
+}
+#html:focus {
+  box-shadow: 0 0 0 0;
+  border-color: #EEE;
 }
 #markdown {
   padding: 10px;
+  font-size: 22px;
+}
+#markdown:focus {
+  box-shadow: 0 0 0 0;
+  border-color: #EEE;
 }
 .btn-icon {
   width: 36px;
@@ -36,6 +43,7 @@ textarea {
 .note-editor .note-editable {
   overflow-x: auto;
   overflow-y: auto;
+  font-size: 22px;
 }
 .note-editor .note-toolbar {
   border-bottom-color: #e7e7e7;
