@@ -1910,20 +1910,20 @@
         return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.font.clear + '" data-shortcut="Ctrl+\\" data-mac-shortcut="Cmd+\\" data-event="removeFormat" tabindex="-1"><i class="fa fa-eraser icon-eraser"></i></button>';
       },
       ul: function (lang) {
-        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.lists.unordered + '" data-shortcut="Ctrl+Shift+8" data-mac-shortcut="Cmd+⇧+7" data-event="insertUnorderedList" tabindex="-1"><i class="fa fa-list-ul icon-list-ul"></i></button>';
+        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.lists.unordered + '" data-shortcut="Ctrl+Shift+8" data-mac-shortcut="Cmd+Shift+7" data-event="insertUnorderedList" tabindex="-1"><i class="fa fa-list-ul icon-list-ul"></i></button>';
       },
       ol: function (lang) {
-        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.lists.ordered + '" data-shortcut="Ctrl+Shift+7" data-mac-shortcut="Cmd+⇧+8" data-event="insertOrderedList" tabindex="-1"><i class="fa fa-list-ol icon-list-ol"></i></button>';
+        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.lists.ordered + '" data-shortcut="Ctrl+Shift+7" data-mac-shortcut="Cmd+Shift+8" data-event="insertOrderedList" tabindex="-1"><i class="fa fa-list-ol icon-list-ol"></i></button>';
       },
       paragraph: function (lang) {
         return '<button type="button" class="btn btn-default btn-sm btn-small dropdown-toggle" title="' + lang.paragraph.paragraph + '" data-toggle="dropdown" tabindex="-1"><i class="fa fa-align-left icon-align-left"></i>  <span class="caret"></span></button>' +
         '<ul class="dropdown-menu">' +
           '<li>' +
           '<div class="note-align btn-group">' +
-          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.left + '" data-shortcut="Ctrl+Shift+L" data-mac-shortcut="Cmd+⇧+L" data-event="justifyLeft" tabindex="-1"><i class="fa fa-align-left icon-align-left"></i></button>' +
-          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.center + '" data-shortcut="Ctrl+Shift+E" data-mac-shortcut="Cmd+⇧+E" data-event="justifyCenter" tabindex="-1"><i class="fa fa-align-center icon-align-center"></i></button>' +
-          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.right + '" data-shortcut="Ctrl+Shift+R" data-mac-shortcut="Cmd+⇧+R" data-event="justifyRight" tabindex="-1"><i class="fa fa-align-right icon-align-right"></i></button>' +
-          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.justify + '" data-shortcut="Ctrl+Shift+J" data-mac-shortcut="Cmd+⇧+J" data-event="justifyFull" tabindex="-1"><i class="fa fa-align-justify icon-align-justify"></i></button>' +
+          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.left + '" data-shortcut="Ctrl+Shift+L" data-mac-shortcut="Cmd+Shift+L" data-event="justifyLeft" tabindex="-1"><i class="fa fa-align-left icon-align-left"></i></button>' +
+          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.center + '" data-shortcut="Ctrl+Shift+E" data-mac-shortcut="Cmd+Shift+E" data-event="justifyCenter" tabindex="-1"><i class="fa fa-align-center icon-align-center"></i></button>' +
+          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.right + '" data-shortcut="Ctrl+Shift+R" data-mac-shortcut="Cmd+Shift+R" data-event="justifyRight" tabindex="-1"><i class="fa fa-align-right icon-align-right"></i></button>' +
+          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.justify + '" data-shortcut="Ctrl+Shift+J" data-mac-shortcut="Cmd+Shift+J" data-event="justifyFull" tabindex="-1"><i class="fa fa-align-justify icon-align-justify"></i></button>' +
           '</div>' +
           '</li>' +
           '<li>' +
@@ -2007,7 +2007,7 @@
                  '<tr><td>Cmd + B</td><td>' + lang.font.bold + '</td></tr>' +
                  '<tr><td>Cmd + I</td><td>' + lang.font.italic + '</td></tr>' +
                  '<tr><td>Cmd + U</td><td>' + lang.font.underline + '</td></tr>' +
-                 '<tr><td>Cmd + ⇧ + S</td><td>' + lang.font.strike + '</td></tr>' +
+                 '<tr><td>Cmd + Shift + S</td><td>' + lang.font.strike + '</td></tr>' +
                  '<tr><td>Cmd + \\</td><td>' + lang.font.clear + '</td></tr>' +
                  '</tr>' +
                '</tbody>' +
@@ -2021,7 +2021,7 @@
                '</thead>' +
                '<tbody>' +
                  '<tr><td>Cmd + Z</td><td>' + lang.history.undo + '</td></tr>' +
-                 '<tr><td>Cmd + ⇧ + Z</td><td>' + lang.history.redo + '</td></tr>' +
+                 '<tr><td>Cmd + Shift + Z</td><td>' + lang.history.redo + '</td></tr>' +
                  '<tr><td>Cmd + ]</td><td>' + lang.paragraph.indent + '</td></tr>' +
                  '<tr><td>Cmd + [</td><td>' + lang.paragraph.outdent + '</td></tr>' +
                  '<tr><td>Cmd + K</td><td>' + lang.link.insert + '</td></tr>' +
@@ -2036,12 +2036,12 @@
                   '<tr><th></th><th>' + lang.shortcut.paragraphFormatting + '</th></tr>' +
                 '</thead>' +
                 '<tbody>' +
-                  '<tr><td>Cmd + ⇧ + L</td><td>' + lang.paragraph.left + '</td></tr>' +
-                  '<tr><td>Cmd + ⇧ + E</td><td>' + lang.paragraph.center + '</td></tr>' +
-                  '<tr><td>Cmd + ⇧ + R</td><td>' + lang.paragraph.right + '</td></tr>' +
-                  '<tr><td>Cmd + ⇧ + J</td><td>' + lang.paragraph.justify + '</td></tr>' +
-                  '<tr><td>Cmd + ⇧ + NUM7</td><td>' + lang.lists.ordered + '</td></tr>' +
-                  '<tr><td>Cmd + ⇧ + NUM8</td><td>' + lang.lists.unordered + '</td></tr>' +
+                  '<tr><td>Cmd + Shift + L</td><td>' + lang.paragraph.left + '</td></tr>' +
+                  '<tr><td>Cmd + Shift + E</td><td>' + lang.paragraph.center + '</td></tr>' +
+                  '<tr><td>Cmd + Shift + R</td><td>' + lang.paragraph.right + '</td></tr>' +
+                  '<tr><td>Cmd + Shift + J</td><td>' + lang.paragraph.justify + '</td></tr>' +
+                  '<tr><td>Cmd + Shift + NUM7</td><td>' + lang.lists.ordered + '</td></tr>' +
+                  '<tr><td>Cmd + Shift + NUM8</td><td>' + lang.lists.unordered + '</td></tr>' +
                 '</tbody>' +
               '</table>';
     };
@@ -2073,7 +2073,7 @@
     };
 
     var replaceMacKeys = function (sHtml) {
-      return sHtml.replace(/Cmd/g, 'Ctrl').replace(/⇧/g, 'Shift');
+      return sHtml.replace(/Cmd/g, 'Ctrl').replace(/Shift/g, 'Shift');
     };
 
     tplDialog = function (lang) {
