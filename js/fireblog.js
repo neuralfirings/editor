@@ -4,6 +4,11 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
     console.log(error);
   } else if (user) {
     console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+    $("#savedoc").attr("disabled", false);
+    $("#savedoc").text("Save");
+    $("#openfile").show();
+    $("#deletedoc").show();
+
     $(document).ready(function() {
       $("#logoutlink").show();
       $("#loginlink").hide();
@@ -30,8 +35,8 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
           titleholder.append(title);
           $("#titlelist").append(titleholder);
           title.click(function() {
-            $("#html").text(value.html);
-            $("#markdown").text(value.md);
+            $("#html").val(value.html);
+            $("#markdown").val(value.md);
             $("#wysiwyg").next().find(".note-editable").html(value.html);
             $("#title").val(value.title);
             $("#title").data("key", key);
@@ -41,14 +46,32 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 
       $("#savedoc").click(function() {
         if($("#title").data("key") == "") {
-          fb.child("users").child(user.id).push({title: $("#title").val(), html: $("#html").val(), md: $("#markdown").val()})
+          newkey = fb.child("users").child(user.id).push({title: $("#title").val(), html: $("#html").val(), md: $("#markdown").val()})
+          $("#title").data("key", newkey.name());
+          console.log("new key", newkey.name())
         } else {
           fb.child("users").child(user.id).child($("#title").data("key")).update({title: $("#title").val(), html: $("#html").val(), md: $("#markdown").val()})
+        }
+      });
+      $("#deletedoc").click(function() {
+        if($("#title").data("key") == "") {
+          clearEditor();
+        } else {
+          fb.child("users").child(user.id).child($("#title").data("key")).remove(function() {
+            if(!error) {
+              clearEditor();
+            }
+          });
         }
       });
     })
   } else {
     console.log("user logged out");
+    $("#savedoc").attr("disabled", true);
+    $("#savedoc").text("Log In to Save");
+    $("#openfile").hide();
+    $("#deletedoc").hide();
+    
     $(document).ready(function() {
       $("#logoutlink").hide();
       $("#loginlink").show();
@@ -190,6 +213,12 @@ $(document).ready(function() {
 
 });
 
+function clearEditor() {
+  $("#title").val("");
+  $("#html").val("");
+  $("#wysiwyg").next().find(".note-editable").html("");
+  $("#markdown").val("");
+}
 
 function wrapSelection(tag1, tag2) {
   document.execCommand("insertHTML", false, tag1 + document.getSelection()+ tag2);

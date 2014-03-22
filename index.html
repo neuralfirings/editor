@@ -40,13 +40,6 @@
             <li>
               <a id="loginlink" href="javascript:void(0)" style="display:none">Login</a>
             </li>
-            <li>
-              <a id="signuplink" href="javascript:void(0)" style="display:none">Sign Up</a>
-            </li>
-            <li>
-              <a id="logoutlink" href="javascript:void(0)" style="display:none">Logout</a>
-            </li>
-            <li id="logininfo" style="display:none"></li>
             <li id="loginform" style="margin-top: 5px; display:none;">
               <div class="form-inline" role="form">
                 <div class="form-group">
@@ -62,8 +55,11 @@
                     <input id="login-remember" type="checkbox"> Remember me
                   </label>
                 </div>
-                <button id="login-button" class="btn btn-default">Sign in</button>
+                <button id="login-button" class="btn btn-default">Log in</button>
               </div>
+            </li>
+            <li>
+              <a id="signuplink" href="javascript:void(0)" style="display:none">Sign Up</a>
             </li>
             <li id="signupform" style="margin-top: 5px; display:none;">
               <div class="form-inline" role="form">
@@ -83,6 +79,10 @@
                 <button id="signup-button" class="btn btn-default">Sign Up</button>
               </div>
             </li>
+            <li>
+              <a id="logoutlink" href="javascript:void(0)" style="display:none">Logout</a>
+            </li>
+            <li id="logininfo" style="display:none"></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -94,13 +94,14 @@
           <div class="input-group">
             <input type="text" class="form-control input-lg" id="title" placeholder="Title" data-key="">
             <div class="input-group-btn">
-              <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" tabindex="-1" style="line-height: 22px; border-radius: 0">
+              <button type="button" id="openfile" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" tabindex="-1" style="line-height: 22px; border-radius: 0; display: none">
                 Open&nbsp;&nbsp;<span class="caret"></span>
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
               <ul id="titlelist" class="dropdown-menu pull-right" role="menu">
               </ul> 
-              <button type="button" id="savedoc" class="btn btn-default btn-lg" tabindex="-1" style="line-height: 22px">Save</button>
+              <button type="button" id="savedoc" class="btn btn-default btn-lg" disabled="true" tabindex="-1" style="line-height: 22px"></button>
+              <button class="btn btn-link" id="deletedoc" style="display:none">Delete</button>
             </div>
           </div>
         </div>
