@@ -19,7 +19,7 @@ textarea {
 }
 #html {
   padding: 10px;
-  font-size: 22px;
+  /*font-size: 22px;*/
 }
 #html:focus {
   box-shadow: 0 0 0 0;
