@@ -20,8 +20,11 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
       userdata = new Firebase('https://nancy.firebaseio.com/users/' + user.id);
       userdata.on("value", function(data) {
         $("#titlelist").empty();
-        $("#titlelist").append("<li><a>Nothing here yet</a></li>")
+        if(data.val() == null) {
+          $("#titlelist").append("<li id='emptylistnotice'><a>Nothing here yet</a></li>");
+        }
         $.each(data.val(), function(key, value) {
+          $("#emptylistnotice").remove();
           title = $("<a href='#' class='titleselect' data-id='" + key + "'>" + value.title + "</a>")
           titleholder = $("<li></li>")
           titleholder.append(title);
@@ -53,9 +56,11 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 
       $("#loginlink").click(function() {
         $("#loginform").toggle();
+        $("#signupform").hide();
       });
       $("#signuplink").click(function() {
         $("#signupform").toggle();
+        $("#loginform").hide();
       });
 
       $("#login-button").click(function() {
