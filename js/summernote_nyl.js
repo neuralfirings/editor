@@ -1833,7 +1833,7 @@
         return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.image.image + '" data-event="showImageDialog" tabindex="-1"><i class="fa fa-picture-o icon-picture"></i></button>';
       },
       link: function (lang) {
-        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.link.link + '" data-event="showLinkDialog" data-shortcut="Ctrl+K" data-mac-shortcut="⌘+K" tabindex="-1"><i class="fa fa-link icon-link"></i></button>';
+        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.link.link + '" data-event="showLinkDialog" data-shortcut="Ctrl+K" data-mac-shortcut="Cmd+K" tabindex="-1"><i class="fa fa-link icon-link"></i></button>';
       },
       video: function (lang) {
         return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.video.video + '" data-event="showVideoDialog" tabindex="-1"><i class="fa fa-youtube-play icon-play"></i></button>';
@@ -1898,38 +1898,38 @@
                '</ul>';
       },
       bold: function (lang) {
-        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.font.bold + '" data-shortcut="Ctrl+B" data-mac-shortcut="⌘+B" data-event="bold" tabindex="-1"><i class="fa fa-bold icon-bold"></i></button>';
+        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.font.bold + '" data-shortcut="Ctrl+B" data-mac-shortcut="Cmd+B" data-event="bold" tabindex="-1"><i class="fa fa-bold icon-bold"></i></button>';
       },
       italic: function (lang) {
-        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.font.italic + '" data-shortcut="Ctrl+I" data-mac-shortcut="⌘+I" data-event="italic" tabindex="-1"><i class="fa fa-italic icon-italic"></i></button>';
+        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.font.italic + '" data-shortcut="Ctrl+I" data-mac-shortcut="Cmd+I" data-event="italic" tabindex="-1"><i class="fa fa-italic icon-italic"></i></button>';
       },
       underline: function (lang) {
-        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.font.underline + '" data-shortcut="Ctrl+U" data-mac-shortcut="⌘+U" data-event="underline" tabindex="-1"><i class="fa fa-underline icon-underline"></i></button>';
+        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.font.underline + '" data-shortcut="Ctrl+U" data-mac-shortcut="Cmd+U" data-event="underline" tabindex="-1"><i class="fa fa-underline icon-underline"></i></button>';
       },
       clear: function (lang) {
-        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.font.clear + '" data-shortcut="Ctrl+\\" data-mac-shortcut="⌘+\\" data-event="removeFormat" tabindex="-1"><i class="fa fa-eraser icon-eraser"></i></button>';
+        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.font.clear + '" data-shortcut="Ctrl+\\" data-mac-shortcut="Cmd+\\" data-event="removeFormat" tabindex="-1"><i class="fa fa-eraser icon-eraser"></i></button>';
       },
       ul: function (lang) {
-        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.lists.unordered + '" data-shortcut="Ctrl+Shift+8" data-mac-shortcut="⌘+⇧+7" data-event="insertUnorderedList" tabindex="-1"><i class="fa fa-list-ul icon-list-ul"></i></button>';
+        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.lists.unordered + '" data-shortcut="Ctrl+Shift+8" data-mac-shortcut="Cmd+⇧+7" data-event="insertUnorderedList" tabindex="-1"><i class="fa fa-list-ul icon-list-ul"></i></button>';
       },
       ol: function (lang) {
-        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.lists.ordered + '" data-shortcut="Ctrl+Shift+7" data-mac-shortcut="⌘+⇧+8" data-event="insertOrderedList" tabindex="-1"><i class="fa fa-list-ol icon-list-ol"></i></button>';
+        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.lists.ordered + '" data-shortcut="Ctrl+Shift+7" data-mac-shortcut="Cmd+⇧+8" data-event="insertOrderedList" tabindex="-1"><i class="fa fa-list-ol icon-list-ol"></i></button>';
       },
       paragraph: function (lang) {
         return '<button type="button" class="btn btn-default btn-sm btn-small dropdown-toggle" title="' + lang.paragraph.paragraph + '" data-toggle="dropdown" tabindex="-1"><i class="fa fa-align-left icon-align-left"></i>  <span class="caret"></span></button>' +
         '<ul class="dropdown-menu">' +
           '<li>' +
           '<div class="note-align btn-group">' +
-          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.left + '" data-shortcut="Ctrl+Shift+L" data-mac-shortcut="⌘+⇧+L" data-event="justifyLeft" tabindex="-1"><i class="fa fa-align-left icon-align-left"></i></button>' +
-          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.center + '" data-shortcut="Ctrl+Shift+E" data-mac-shortcut="⌘+⇧+E" data-event="justifyCenter" tabindex="-1"><i class="fa fa-align-center icon-align-center"></i></button>' +
-          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.right + '" data-shortcut="Ctrl+Shift+R" data-mac-shortcut="⌘+⇧+R" data-event="justifyRight" tabindex="-1"><i class="fa fa-align-right icon-align-right"></i></button>' +
-          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.justify + '" data-shortcut="Ctrl+Shift+J" data-mac-shortcut="⌘+⇧+J" data-event="justifyFull" tabindex="-1"><i class="fa fa-align-justify icon-align-justify"></i></button>' +
+          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.left + '" data-shortcut="Ctrl+Shift+L" data-mac-shortcut="Cmd+⇧+L" data-event="justifyLeft" tabindex="-1"><i class="fa fa-align-left icon-align-left"></i></button>' +
+          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.center + '" data-shortcut="Ctrl+Shift+E" data-mac-shortcut="Cmd+⇧+E" data-event="justifyCenter" tabindex="-1"><i class="fa fa-align-center icon-align-center"></i></button>' +
+          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.right + '" data-shortcut="Ctrl+Shift+R" data-mac-shortcut="Cmd+⇧+R" data-event="justifyRight" tabindex="-1"><i class="fa fa-align-right icon-align-right"></i></button>' +
+          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.justify + '" data-shortcut="Ctrl+Shift+J" data-mac-shortcut="Cmd+⇧+J" data-event="justifyFull" tabindex="-1"><i class="fa fa-align-justify icon-align-justify"></i></button>' +
           '</div>' +
           '</li>' +
           '<li>' +
           '<div class="note-list btn-group">' +
-          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.outdent + '" data-shortcut="Ctrl+[" data-mac-shortcut="⌘+[" data-event="outdent" tabindex="-1"><i class="fa fa-outdent icon-indent-left"></i></button>' +
-          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.indent + '" data-shortcut="Ctrl+]" data-mac-shortcut="⌘+]" data-event="indent" tabindex="-1"><i class="fa fa-indent icon-indent-right"></i></button>' +
+          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.outdent + '" data-shortcut="Ctrl+[" data-mac-shortcut="Cmd+[" data-event="outdent" tabindex="-1"><i class="fa fa-outdent icon-indent-left"></i></button>' +
+          '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.paragraph.indent + '" data-shortcut="Ctrl+]" data-mac-shortcut="Cmd+]" data-event="indent" tabindex="-1"><i class="fa fa-indent icon-indent-right"></i></button>' +
           '</li>' +
         '</ul>';
       },
@@ -1947,7 +1947,7 @@
         '</ul>';
       },
       help: function (lang) {
-        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.options.help + '" data-shortcut="Ctrl+/" data-mac-shortcut="⌘+/" data-event="showHelpDialog" tabindex="-1"><i class="fa fa-question icon-question"></i></button>';
+        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.options.help + '" data-shortcut="Ctrl+/" data-mac-shortcut="Cmd+/" data-event="showHelpDialog" tabindex="-1"><i class="fa fa-question icon-question"></i></button>';
       },
       fullscreen: function (lang) {
         return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.options.fullscreen + '" data-event="fullscreen" tabindex="-1"><i class="fa fa-arrows-alt icon-fullscreen"></i></button>';
@@ -2004,11 +2004,11 @@
                  '<tr><th></th><th>' + lang.shortcut.textFormatting + '</th></tr>' +
                '</thead>' +
                '<tbody>' +
-                 '<tr><td>⌘ + B</td><td>' + lang.font.bold + '</td></tr>' +
-                 '<tr><td>⌘ + I</td><td>' + lang.font.italic + '</td></tr>' +
-                 '<tr><td>⌘ + U</td><td>' + lang.font.underline + '</td></tr>' +
-                 '<tr><td>⌘ + ⇧ + S</td><td>' + lang.font.strike + '</td></tr>' +
-                 '<tr><td>⌘ + \\</td><td>' + lang.font.clear + '</td></tr>' +
+                 '<tr><td>Cmd + B</td><td>' + lang.font.bold + '</td></tr>' +
+                 '<tr><td>Cmd + I</td><td>' + lang.font.italic + '</td></tr>' +
+                 '<tr><td>Cmd + U</td><td>' + lang.font.underline + '</td></tr>' +
+                 '<tr><td>Cmd + ⇧ + S</td><td>' + lang.font.strike + '</td></tr>' +
+                 '<tr><td>Cmd + \\</td><td>' + lang.font.clear + '</td></tr>' +
                  '</tr>' +
                '</tbody>' +
              '</table>';
@@ -2020,12 +2020,12 @@
                  '<tr><th></th><th>' + lang.shortcut.action + '</th></tr>' +
                '</thead>' +
                '<tbody>' +
-                 '<tr><td>⌘ + Z</td><td>' + lang.history.undo + '</td></tr>' +
-                 '<tr><td>⌘ + ⇧ + Z</td><td>' + lang.history.redo + '</td></tr>' +
-                 '<tr><td>⌘ + ]</td><td>' + lang.paragraph.indent + '</td></tr>' +
-                 '<tr><td>⌘ + [</td><td>' + lang.paragraph.outdent + '</td></tr>' +
-                 '<tr><td>⌘ + K</td><td>' + lang.link.insert + '</td></tr>' +
-                 '<tr><td>⌘ + ENTER</td><td>' + lang.hr.insert + '</td></tr>' +
+                 '<tr><td>Cmd + Z</td><td>' + lang.history.undo + '</td></tr>' +
+                 '<tr><td>Cmd + ⇧ + Z</td><td>' + lang.history.redo + '</td></tr>' +
+                 '<tr><td>Cmd + ]</td><td>' + lang.paragraph.indent + '</td></tr>' +
+                 '<tr><td>Cmd + [</td><td>' + lang.paragraph.outdent + '</td></tr>' +
+                 '<tr><td>Cmd + K</td><td>' + lang.link.insert + '</td></tr>' +
+                 '<tr><td>Cmd + ENTER</td><td>' + lang.hr.insert + '</td></tr>' +
                '</tbody>' +
              '</table>';
     };
@@ -2036,12 +2036,12 @@
                   '<tr><th></th><th>' + lang.shortcut.paragraphFormatting + '</th></tr>' +
                 '</thead>' +
                 '<tbody>' +
-                  '<tr><td>⌘ + ⇧ + L</td><td>' + lang.paragraph.left + '</td></tr>' +
-                  '<tr><td>⌘ + ⇧ + E</td><td>' + lang.paragraph.center + '</td></tr>' +
-                  '<tr><td>⌘ + ⇧ + R</td><td>' + lang.paragraph.right + '</td></tr>' +
-                  '<tr><td>⌘ + ⇧ + J</td><td>' + lang.paragraph.justify + '</td></tr>' +
-                  '<tr><td>⌘ + ⇧ + NUM7</td><td>' + lang.lists.ordered + '</td></tr>' +
-                  '<tr><td>⌘ + ⇧ + NUM8</td><td>' + lang.lists.unordered + '</td></tr>' +
+                  '<tr><td>Cmd + ⇧ + L</td><td>' + lang.paragraph.left + '</td></tr>' +
+                  '<tr><td>Cmd + ⇧ + E</td><td>' + lang.paragraph.center + '</td></tr>' +
+                  '<tr><td>Cmd + ⇧ + R</td><td>' + lang.paragraph.right + '</td></tr>' +
+                  '<tr><td>Cmd + ⇧ + J</td><td>' + lang.paragraph.justify + '</td></tr>' +
+                  '<tr><td>Cmd + ⇧ + NUM7</td><td>' + lang.lists.ordered + '</td></tr>' +
+                  '<tr><td>Cmd + ⇧ + NUM8</td><td>' + lang.lists.unordered + '</td></tr>' +
                 '</tbody>' +
               '</table>';
     };
@@ -2052,13 +2052,13 @@
                  '<tr><th></th><th>' + lang.shortcut.documentStyle + '</th></tr>' +
                '</thead>' +
                '<tbody>' +
-                 '<tr><td>⌘ + NUM0</td><td>' + lang.style.normal + '</td></tr>' +
-                 '<tr><td>⌘ + NUM1</td><td>' + lang.style.h1 + '</td></tr>' +
-                 '<tr><td>⌘ + NUM2</td><td>' + lang.style.h2 + '</td></tr>' +
-                 '<tr><td>⌘ + NUM3</td><td>' + lang.style.h3 + '</td></tr>' +
-                 '<tr><td>⌘ + NUM4</td><td>' + lang.style.h4 + '</td></tr>' +
-                 '<tr><td>⌘ + NUM5</td><td>' + lang.style.h5 + '</td></tr>' +
-                 '<tr><td>⌘ + NUM6</td><td>' + lang.style.h6 + '</td></tr>' +
+                 '<tr><td>Cmd + NUM0</td><td>' + lang.style.normal + '</td></tr>' +
+                 '<tr><td>Cmd + NUM1</td><td>' + lang.style.h1 + '</td></tr>' +
+                 '<tr><td>Cmd + NUM2</td><td>' + lang.style.h2 + '</td></tr>' +
+                 '<tr><td>Cmd + NUM3</td><td>' + lang.style.h3 + '</td></tr>' +
+                 '<tr><td>Cmd + NUM4</td><td>' + lang.style.h4 + '</td></tr>' +
+                 '<tr><td>Cmd + NUM5</td><td>' + lang.style.h5 + '</td></tr>' +
+                 '<tr><td>Cmd + NUM6</td><td>' + lang.style.h6 + '</td></tr>' +
                '</tbody>' +
              '</table>';
     };
@@ -2073,7 +2073,7 @@
     };
 
     var replaceMacKeys = function (sHtml) {
-      return sHtml.replace(/⌘/g, 'Ctrl').replace(/⇧/g, 'Shift');
+      return sHtml.replace(/Cmd/g, 'Ctrl').replace(/⇧/g, 'Shift');
     };
 
     tplDialog = function (lang) {
