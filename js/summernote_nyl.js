@@ -1553,6 +1553,8 @@
             $dialog = oLayoutInfo.dialog(),
             $editable = oLayoutInfo.editable(),
             $codable = oLayoutInfo.codable();
+        console.log("hihi", $editable, event.target)
+        window.editable = $editable
 
         // before command
         var elTarget;
@@ -2231,6 +2233,7 @@
 
       //03. create Editable
       var $editable = $('<div class="note-editable" contentEditable="true"></div>').prependTo($editor);
+      $editable.attr("id", options.id); // NANCY EDIT
       if (nHeight) {
         $editable.height(nHeight);
         $editable.data('optionHeight', nHeight);

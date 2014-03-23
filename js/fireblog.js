@@ -37,18 +37,19 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
           title.click(function() {
             $("#html").val(value.html);
             $("#markdown").val(value.md);
-            $("#wysiwyg").next().find(".note-editable").html(value.html);
+            $("#wysiwyg").html(value.html);
             $("#title").val(value.title);
             $("#title").data("key", key);
           });
-        })
+        });
+        $("#titlelist").append("<li><hr></li>");
+        $("#titlelist").append("<li><a href='javascript:void(0)' id='newentry'><i>New Entry</i></a></li>");
       });
 
       $("#savedoc").click(function() {
         if($("#title").data("key") == "") {
           newkey = fb.child("users").child(user.id).push({title: $("#title").val(), html: $("#html").val(), md: $("#markdown").val()})
           $("#title").data("key", newkey.name());
-          console.log("new key", newkey.name())
         } else {
           fb.child("users").child(user.id).child($("#title").data("key")).update({title: $("#title").val(), html: $("#html").val(), md: $("#markdown").val()})
         }
@@ -147,7 +148,7 @@ $(document).ready(function() {
     $(".editor-container").find(".editor").removeClass("col-md-8 col-md-offset-2").addClass("col-md-4")
   });
 
-  $("#wysiwyg").summernote({
+  $("#wysiwyg-init").summernote({
     toolbar: [
       ['style', ['style']], // no style button
       ['style', ['bold', 'italic']],
@@ -156,13 +157,18 @@ $(document).ready(function() {
       //['table', ['table']], // no table button
       //['help', ['help']] //no help button
     ],
+    id: "wysiwyg",
     height: 546,
     onkeyup: function(e) {
       wys2md();
       wys2html();
-    }, 
+    },
+    onkeydown: function(e) {
+    },
+    onenter: function(e) {
+    },
     oninit: function(e) {
-      $("#wysiwyg").next().find(".note-toolbar").find("button").mouseup(function() { 
+      $("#wysiwyg-init").next().find(".note-toolbar").find("button").mouseup(function() { 
         wys2md();
         wys2html();
       })
@@ -176,19 +182,19 @@ $(document).ready(function() {
 
   function md2wys() {
     html = marked($("#markdown").val());
-    $("#wysiwyg").next().find(".note-editable").html(html);
+    $("#wysiwyg").html(html);
   }
   function wys2html() {
-    html = $("#wysiwyg").next().find(".note-editable").html();
-    html = html.replace(/&nbsp;/gi, ' ');
+    html = $("#wysiwyg").code();
+    // html = html.replace(/&nbsp;/gi, ' ');
     $("#html").val(html);
   }
   function html2wys() {
     html = $("#html").val();
-    $("#wysiwyg").next().find(".note-editable").html(html);
+    $("#wysiwyg").html(html);
   }
   function wys2md() {
-    h = $("#wysiwyg").next().find(".note-editable").html();
+    h = $("#wysiwyg").html();
     h = h.replace(/<div/gi, '<p');
     h = h.replace(/<\/div>/gi, '</p>');
     h = h.replace(/&nbsp;/gi, ' ');
@@ -215,8 +221,9 @@ $(document).ready(function() {
 
 function clearEditor() {
   $("#title").val("");
+  $("#title").data("key", "");
   $("#html").val("");
-  $("#wysiwyg").next().find(".note-editable").html("");
+  $("#wysiwyg").html("");
   $("#markdown").val("");
 }
 

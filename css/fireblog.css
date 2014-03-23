@@ -13,7 +13,7 @@
 textarea {
   font-family: "consolas", courier; 
 }
-#wysiwyg {
+#wysiwyg-init {
   margin: 10px 0px;
   padding: 10px;
 }
