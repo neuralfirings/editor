@@ -38,9 +38,9 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="javascript:void(0)">Home</a></li>
             <li>
-              <a id="loginlink" href="javascript:void(0)" style="display:none">Login</a>
+              <a id="loginlink" class="showloggedout" href="javascript:void(0)" style="display:none">Login</a>
             </li>
-            <li id="loginform" style="margin-top: 5px; display:none;">
+            <li id="loginform" class="" style="margin-top: 5px; display:none;">
               <div class="form-inline" role="form">
                 <div class="form-group">
                   <label class="sr-only" for="login-email">Email address</label>
@@ -59,9 +59,9 @@
               </div>
             </li>
             <li>
-              <a id="signuplink" href="javascript:void(0)" style="display:none">Sign Up</a>
+              <a id="signuplink" class="showloggedout" href="javascript:void(0)" style="display:none">Sign Up</a>
             </li>
-            <li id="signupform" style="margin-top: 5px; display:none;">
+            <li id="signupform" class="" style="margin-top: 5px; display:none;">
               <div class="form-inline" role="form">
                 <div class="form-group">
                   <label class="sr-only" for="signup-email">Email address</label>
@@ -80,9 +80,16 @@
               </div>
             </li>
             <li>
-              <a id="logoutlink" href="javascript:void(0)" style="display:none">Logout</a>
+              <a id="logoutlink" class="showloggedin" href="javascript:void(0)" style="display:none">Logout</a>
             </li>
-            <li id="logininfo" style="display:none"></li>
+            <li id="logininfo"  class="showloggedin" style="display:none"></li>
+            <li id="styledropdown"  class="showloggedin" style="display:none">
+              <div class="form-inline" style="margin-top:5px">
+                <select class="form-control" id="styleselect">
+                  <option>Select Style</option>
+                </select>
+              </div>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -94,14 +101,14 @@
           <div class="input-group">
             <input type="text" class="form-control input-lg" id="title" placeholder="Title" data-key="">
             <div class="input-group-btn">
-              <button type="button" id="openfile" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" tabindex="-1" style="line-height: 22px; border-radius: 0; display: none">
+              <button type="button" id="openfile" class="showloggedin btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" tabindex="-1" style="line-height: 22px; border-radius: 0; display: none">
                 Open&nbsp;&nbsp;<span class="caret"></span>
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
               <ul id="titlelist" class="dropdown-menu pull-right" role="menu">
               </ul> 
               <button type="button" id="savedoc" class="btn btn-default btn-lg" disabled="true" tabindex="-1" style="line-height: 22px"></button>
-              <button class="btn btn-link" id="deletedoc" style="display:none">Delete</button>
+              <button class="btn btn-link showloggedin" id="deletedoc" style="display:none">Delete</button>
             </div>
           </div>
         </div>

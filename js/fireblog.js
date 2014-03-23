@@ -6,20 +6,42 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
     console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
     $("#savedoc").attr("disabled", false);
     $("#savedoc").text("Save");
-    $("#openfile").show();
-    $("#deletedoc").show();
+    // $("#openfile").show();
+    // $("#deletedoc").show();
 
     $(document).ready(function() {
-      $("#logoutlink").show();
-      $("#loginlink").hide();
-      $("#signuplink").hide();
-      $("#loginform").hide();
-      $("#signupform").hide();
-      $("#logininfo").html("<a>You are logged in as: " + user.email + "</a>")
-      $("#logininfo").show();
+      $(".showloggedin").show();
+      $(".showloggedout").hide();
+      $("#logininfo").html("<a>You are logged in as: " + user.email + "</a>");
       $("#logoutlink").click(function() {
         auth.logout();
         location.reload();
+      });
+
+      styledata = new Firebase('https://nancy.firebaseio.com/styles/public');
+      styledata.on("value", function(data) {
+        $.each(data.val(), function(key, value) {
+          style = $("<option class='styleoption' data-stylename='" + key + "' data-css='" + value.css + "'>" + value.title + "</option>")
+          $("#styleselect").append(style);
+
+          $("<style type='text/css'> ." + key + "{ " + value.css + "} </style>").appendTo("head");
+        })
+      });
+      userstyledata = new Firebase('https://nancy.firebaseio.com/styles/' + user.id);
+      userstyledata.on("value", function(data) {
+        if(data.val() != null) {
+          $.each(data.val(), function(key, value) {
+            style = $("<option class='styleoption' data-css='" + value.css + "'>" + value.title + "</option>")
+            $("#styleselect").append(style);
+          })
+        }
+      });
+
+      $("#styleselect").change(function() {
+        stylename = $("#styleselect option:selected").data("stylename")
+        $("#markdown").addClass(stylename);
+        $("#wysiwyg").addClass(stylename);
+        $("#markdown").addClass(stylename);
       });
 
       userdata = new Firebase('https://nancy.firebaseio.com/users/' + user.id);
@@ -27,21 +49,22 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
         $("#titlelist").empty();
         if(data.val() == null) {
           $("#titlelist").append("<li id='emptylistnotice'><a>Nothing here yet</a></li>");
+        } else {
+          $.each(data.val(), function(key, value) {
+            $("#emptylistnotice").remove();
+            title = $("<a href='#' class='titleselect' data-id='" + key + "'>" + value.title + "</a>")
+            titleholder = $("<li></li>")
+            titleholder.append(title);
+            $("#titlelist").append(titleholder);
+            title.click(function() {
+              $("#html").val(value.html);
+              $("#markdown").val(value.md);
+              $("#wysiwyg").html(value.html);
+              $("#title").val(value.title);
+              $("#title").data("key", key);
+            });
+          }); 
         }
-        $.each(data.val(), function(key, value) {
-          $("#emptylistnotice").remove();
-          title = $("<a href='#' class='titleselect' data-id='" + key + "'>" + value.title + "</a>")
-          titleholder = $("<li></li>")
-          titleholder.append(title);
-          $("#titlelist").append(titleholder);
-          title.click(function() {
-            $("#html").val(value.html);
-            $("#markdown").val(value.md);
-            $("#wysiwyg").html(value.html);
-            $("#title").val(value.title);
-            $("#title").data("key", key);
-          });
-        });
         $("#titlelist").append("<li><hr></li>");
         $("#titlelist").append("<li><a href='javascript:void(0)' id='newentry'><i>New Entry</i></a></li>");
       });
@@ -70,13 +93,12 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
     console.log("user logged out");
     $("#savedoc").attr("disabled", true);
     $("#savedoc").text("Log In to Save");
-    $("#openfile").hide();
-    $("#deletedoc").hide();
+    // $("#openfile").hide();
+    // $("#deletedoc").hide();
     
     $(document).ready(function() {
-      $("#logoutlink").hide();
-      $("#loginlink").show();
-      $("#signuplink").show();
+      $(".showloggedout").show();
+      $(".showloggedin").hide();
 
       $("#loginlink").click(function() {
         $("#loginform").toggle();
