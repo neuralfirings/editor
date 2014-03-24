@@ -2223,7 +2223,7 @@
       if ($holder.next().hasClass('note-editor')) { return; }
 
       //01. create Editor
-      var $editor = $('<div class="note-editor"></div>');
+      var $editor = $('<div class="note-editor ' + options.addcontainerclass + '"></div>'); // NANCY EDIT
       $editor.data('options', options);
 
       //02. statusbar
@@ -2231,9 +2231,9 @@
         $('<div class="note-statusbar">' + tplStatusbar + '</div>').prependTo($editor);
       }
 
-      //03. create Editable
-      var $editable = $('<div class="note-editable" contentEditable="true"></div>').prependTo($editor);
-      $editable.attr("id", options.id); // NANCY EDIT
+      //03. create Editable // NANCY EDIT BEGIN
+      var $editable = $('<div class="note-editable ' + options.addclass + '" contentEditable="true"></div>').prependTo($editor);
+      $editable.attr("id", options.addid); // NANCY EDIT END
       if (nHeight) {
         $editable.height(nHeight);
         $editable.data('optionHeight', nHeight);

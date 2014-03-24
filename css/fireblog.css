@@ -11,40 +11,81 @@
   border-radius: 15px;
 }
 textarea {
-  font-family: "consolas", courier; 
+  /*font-family: "consolas", courier; */
 }
 #wysiwyg-init {
-  margin: 10px 0px;
-  padding: 10px;
+  margin: 20px 0px;
+}
+#wysiwyg {
+  padding: 0px;
+  border: 0px;
+  box-shadow: 0 0 0 0;
+  /*outline:1px solid #DDD;*/
+  outline-offset:10px;
+  height: 546px;
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 22px;
 }
 #html {
-  padding: 10px;
-  /*font-size: 22px;*/
+  margin: 20px auto;
+  padding: 0px;
+  border: 0px;
+  box-shadow: 0 0 0 0;
+  outline:1px solid #DDD;
+  outline-offset:10px;
+  height: 600px;
+  font-family: "consolas", courier; 
+  font-size: 14px;
 }
-#html:focus {
+/*#html:focus {
   box-shadow: 0 0 0 0;
   border-color: #EEE;
-}
+}*/
 #markdown {
-  padding: 10px;
+  margin: 20px auto;
+  padding: 0px;
+  border: 0px;
+  box-shadow: 0 0 0 0;
+  outline:1px solid #DDD;
+  outline-offset:10px;
+  height: 600px;
+  font-family: "consolas", courier; 
   font-size: 22px;
 }
 #markdown:focus {
   box-shadow: 0 0 0 0;
-  border-color: #EEE;
+  border: 0px;
+}
+#markdown.squished {
+  height: 200px;
+}
+#html.squished {
+  height: 200px;
+}
+#wysiwyg.squished {
+  height: 200px;
 }
 .btn-icon {
   width: 36px;
 }
 .note-editor {
-  border-color: #e7e7e7;
+  /*border-color: #e7e7e7;*/
   border-radius: 4px;
+  margin: 20px auto;
+  border: 0;
+  outline-offset: 10px;
+  outline: solid 1px #DDD;
 }
 .note-editor .note-editable {
-  overflow-x: auto;
+  margin: 10px auto;
+/*  overflow-x: auto;
   overflow-y: auto;
-  font-size: 22px;
+  font-size: 22px;*/
 }
 .note-editor .note-toolbar {
   border-bottom-color: #e7e7e7;
+  background-color: transparent;
+}
+.note-editor .note-toolbar .btn-group {
+  margin-top: -5px;
 }

@@ -20,28 +20,23 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 
       styledata = new Firebase('https://nancy.firebaseio.com/styles/public');
       styledata.on("value", function(data) {
+        $("#styleselect").find(".styleoption").remove();
+        $("head").find(".customstyles").remove();
         $.each(data.val(), function(key, value) {
-          style = $("<option class='styleoption' data-stylename='" + key + "' data-css='" + value.css + "'>" + value.title + "</option>")
-          $("#styleselect").append(style);
-
-          $("<style type='text/css'> ." + key + "{ " + value.css + "} </style>").appendTo("head");
+          cssarr = value.css.split("}");
+          cssnew = "";
+          for (var i=0; i<cssarr.length-1; i++) { 
+            cssnew += "." + key + " " + cssarr[i] + "}";
+          }
+          styleoption = $("<option class='styleoption' data-key='" + key + "' data-css='nothinghere' data-title='nothinghere'>" + value.title + "</option>")
+          $("#styleselect").append(styleoption);
+          $("<style class='customstyles' type='text/css'>" + cssnew + "</style>").appendTo("head");
         })
-      });
-      userstyledata = new Firebase('https://nancy.firebaseio.com/styles/' + user.id);
-      userstyledata.on("value", function(data) {
-        if(data.val() != null) {
-          $.each(data.val(), function(key, value) {
-            style = $("<option class='styleoption' data-css='" + value.css + "'>" + value.title + "</option>")
-            $("#styleselect").append(style);
-          })
-        }
       });
 
       $("#styleselect").change(function() {
-        stylename = $("#styleselect option:selected").data("stylename")
-        $("#markdown").addClass(stylename);
-        $("#wysiwyg").addClass(stylename);
-        $("#markdown").addClass(stylename);
+        stylekey = $("#styleselect option:selected").data("key")
+        $(".editor-container").removeClass().addClass("editor-container row").addClass(stylekey);
       });
 
       userdata = new Firebase('https://nancy.firebaseio.com/users/' + user.id);
@@ -66,8 +61,13 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
           }); 
         }
         $("#titlelist").append("<li><hr></li>");
-        $("#titlelist").append("<li><a href='javascript:void(0)' id='newentry'><i>New Entry</i></a></li>");
+        newentry = $("<li><a href='javascript:void(0)' id='newentry'><i>New Entry</i></a></li>");
+        $("#titlelist").append(newentry);
+        newentry.click(function() {
+          clearEditor();
+        })
       });
+
 
       $("#savedoc").click(function() {
         if($("#title").data("key") == "") {
@@ -142,32 +142,38 @@ $(document).ready(function() {
     $(this).closest("li").addClass("active");
     $("#wysiwyg").closest(".editor").hide();
     $("#markdown").closest(".editor").hide();
-    $("#html").closest(".editor").show()
-    $("#html").closest(".editor").removeClass("col-md-4").addClass("col-md-8 col-md-offset-2");
+    $("#html").closest(".editor").show();
+    $("#html").removeClass("squished");
+    // $("#html").closest(".editor").removeClass("col-md-4").addClass("col-md-8 col-md-offset-2");
   });
   $("#mode-md").click(function() {
     $("#mode-nav").find("li").removeClass("active");
     $(this).closest("li").addClass("active");
     $("#wysiwyg").closest(".editor").hide();
     $("#markdown").closest(".editor").show();
-    $("#html").closest(".editor").hide()
-    $("#markdown").closest(".editor").removeClass("col-md-4").addClass("col-md-8 col-md-offset-2");
+    $("#html").closest(".editor").hide();
+    $("#markdown").removeClass("squished");
+    // $("#markdown").closest(".editor").removeClass("col-md-4").addClass("col-md-8 col-md-offset-2");
   });
   $("#mode-wys").click(function() {
     $("#mode-nav").find("li").removeClass("active");
     $(this).closest("li").addClass("active");
     $("#wysiwyg").closest(".editor").show();
     $("#markdown").closest(".editor").hide();
-    $("#html").closest(".editor").hide()
-    $("#wysiwyg").closest(".editor").removeClass("col-md-4").addClass("col-md-8 col-md-offset-2");
+    $("#html").closest(".editor").hide();
+    $("#wysiwyg").removeClass("squished");
+    // $("#wysiwyg").closest(".editor").removeClass("col-md-4").addClass("col-md-8 col-md-offset-2");
   });
   $("#mode-all").click(function() {
     $("#mode-nav").find("li").removeClass("active");
     $(this).closest("li").addClass("active");
     $("#wysiwyg").closest(".editor").show();
     $("#markdown").closest(".editor").show();
-    $("#html").closest(".editor").show()
-    $(".editor-container").find(".editor").removeClass("col-md-8 col-md-offset-2").addClass("col-md-4")
+    $("#html").closest(".editor").show();
+    $("#wysiwyg").addClass("squished");
+    $("#html").addClass("squished");
+    $("#markdown").addClass("squished");
+    // $(".editor-container").find(".editor").removeClass("col-md-8 col-md-offset-2").addClass("col-md-4")
   });
 
   $("#wysiwyg-init").summernote({
@@ -179,8 +185,9 @@ $(document).ready(function() {
       //['table', ['table']], // no table button
       //['help', ['help']] //no help button
     ],
-    id: "wysiwyg",
-    height: 546,
+    addid: "wysiwyg",
+    addclass: "general squished",
+    addcontainerclass: "general",
     onkeyup: function(e) {
       wys2md();
       wys2html();
