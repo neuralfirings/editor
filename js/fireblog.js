@@ -20,7 +20,7 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
       $("#logoutlink").click(function() {
         auth.logout();
         location.reload();
-      });
+      }); 
 
       styledata = new Firebase('https://nancy.firebaseio.com/styles/public');
       styledata.on("value", function(data) {
