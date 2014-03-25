@@ -122,12 +122,12 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
         title = $("#title").val();
         doc = {title: title, html: $("#html").val(), md: $("#markdown").val()};
         $("#savedoc").html('Saving <i class="fa fa-spinner fa-spin"></i>');
-        $("body").css("background-color" , "#EEE");
+        $("body").css("opacity" , "0.8");
         if($("#title").data("key") == "") { // new doc
           newkey = fb.child("users").child(user.id).push(doc, function() {
             setTimeout(function(){
               $("#savedoc").text("Save");
-              $("body").css("background-color" , "#FFF");
+              $("body").css("opacity" , "1");
             },1000);
           });
           $("#title").data("key", newkey.name());
@@ -137,7 +137,7 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
           fb.child("users").child(user.id).child($("#title").data("key")).update(doc, function() {
             setTimeout(function(){
               $("#savedoc").text("Save");
-              $("body").css("background-color" , "#FFF");
+              $("body").css("opacity" , "1");
             },1000);
           });
           fb.child("users").child(user.id).child($("#title").data("key")).child("modified").set(Firebase.ServerValue.TIMESTAMP);
