@@ -92,18 +92,18 @@ textarea {
 .note-editor .note-toolbar .btn-group {
   margin-top: -5px;
 }
-.nav>li>a {
+.nav-tabs-mode>li>a {
   padding: 5px 10px;
 }
-.nav-tabs>li.active>a {
+.nav-tabs-mode>li.active>a {
   padding-top: 3px;
   padding-bottom: 13px;
 }
-.nav-tabs>li.active>a:hover {
+.nav-tabs-mode>li.active>a:hover {
   padding-top: 3px;
   padding-bottom: 13px;
 }
-.nav-tabs>li>a:hover {
+.nav-tabs-mode>li>a:hover {
   padding-top: 3px;
   padding-bottom: 13px;
 }
