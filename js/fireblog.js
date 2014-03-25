@@ -24,7 +24,6 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 
       styledata = new Firebase('https://nancy.firebaseio.com/styles/public');
       styledata.on("value", function(data) {
-        console.log(data.val());
         $("#styleselect").find(".styleoption").remove();
         $("head").find(".customstyles").remove();
         $.each(data.val(), function(key, value) {
@@ -82,7 +81,12 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
         } else {
           $.each(data.val(), function(key, value) {
             $("#emptylistnotice").remove();
-            title = $("<a href='#' class='titleselect' data-id='" + key + "'>" + value.title + "</a>")
+            if (value.title == "") {
+              title = "No Title :(";
+            } else {
+              title = value.title; 
+            }
+            title = $("<a href='#' class='titleselect' data-id='" + key + "'>" + title + "</a>")
             titleholder = $("<li></li>")
             titleholder.append(title);
             $("#titlelist").append(titleholder);
@@ -105,11 +109,12 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 
 
       $("#savedoc").click(function() {
-        if ($("#title").val() == "") {
-          title = "No Title :(";
-        } else {
-          title = $("#title").val();
-        }
+        // if ($("#title").val() == "") {
+        //   title = "No Title :(";
+        // } else {
+        //   title = $("#title").val();
+        // }
+        title = $("#title").val();
         doc = {title: title, html: $("#html").val(), md: $("#markdown").val()};
         $("#savedoc").html('Saving <i class="fa fa-spinner fa-spin"></i>');
         if($("#title").data("key") == "") {
