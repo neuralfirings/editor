@@ -105,11 +105,17 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 
 
       $("#savedoc").click(function() {
+        doc = {title: $("#title").val(), html: $("#html").val(), md: $("#markdown").val()};
+        $("#savedoc").html('Saving <i class="fa fa-spinner fa-spin"></i>');
         if($("#title").data("key") == "") {
-          newkey = fb.child("users").child(user.id).push({title: $("#title").val(), html: $("#html").val(), md: $("#markdown").val()})
+          newkey = fb.child("users").child(user.id).push(doc, function() {
+            setTimeout(function(){$("#savedoc").text("Save");},1000);
+          });
           $("#title").data("key", newkey.name());
         } else {
-          fb.child("users").child(user.id).child($("#title").data("key")).update({title: $("#title").val(), html: $("#html").val(), md: $("#markdown").val()})
+          fb.child("users").child(user.id).child($("#title").data("key")).update(doc, function() {
+            setTimeout(function(){$("#savedoc").text("Save");},1000);
+          });
         }
       });
       $("#deletedoc").click(function() {
