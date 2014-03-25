@@ -1400,6 +1400,12 @@
 
       if (keyCode === key.TAB && oLayoutInfo.editable().data('tabsize')) {
         editor.tab(oLayoutInfo.editable());
+      // NANCY EDIT BEGIN
+      } else if (keyCode === key.TAB && !bShift && !oLayoutInfo.editable().data('tabsize')) {
+        editor.indent(oLayoutInfo.editable());
+      } else if (keyCode === key.TAB && bShift && !oLayoutInfo.editable().data('tabsize')) {
+        editor.outdent(oLayoutInfo.editable());
+      // NANCY EDIT END
       } else if (bCmd && ((bShift && keyCode === key.Z) || keyCode === key.Y)) {
         editor.redo(oLayoutInfo.editable());
       } else if (bCmd && keyCode === key.Z) {
@@ -2231,9 +2237,11 @@
         $('<div class="note-statusbar">' + tplStatusbar + '</div>').prependTo($editor);
       }
 
-      //03. create Editable // NANCY EDIT BEGIN
+      //03. create Editable 
+      // NANCY EDIT BEGIN
       var $editable = $('<div class="note-editable ' + options.addclass + '" contentEditable="true"></div>').prependTo($editor);
-      $editable.attr("id", options.addid); // NANCY EDIT END
+      $editable.attr("id", options.addid); 
+      // NANCY EDIT END
       if (nHeight) {
         $editable.height(nHeight);
         $editable.data('optionHeight', nHeight);
