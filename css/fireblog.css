@@ -18,6 +18,7 @@ textarea {
 }
 #wysiwyg {
   padding: 0px;
+  padding-bottom: 200px;
   border: 0px;
   box-shadow: 0 0 0 0;
   /*outline:1px solid #DDD;*/
@@ -29,6 +30,7 @@ textarea {
 #html {
   margin: 20px auto;
   padding: 0px;
+  padding-bottom: 200px;
   border: 0px;
   box-shadow: 0 0 0 0;
   outline:1px solid #DDD;
@@ -44,6 +46,7 @@ textarea {
 #markdown {
   margin: 20px auto;
   padding: 0px;
+  padding-bottom: 200px;
   border: 0px;
   box-shadow: 0 0 0 0;
   outline:1px solid #DDD;
