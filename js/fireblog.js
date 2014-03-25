@@ -206,6 +206,14 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
   }
 });
 
+function scrollToEditor () {
+  if (!$("#mode-all").closest("li").hasClass("active")) {
+    $('html, body').animate({
+      scrollTop: $(".editor-container").offset().top-10
+    }, 100); 
+  }
+}
+
 function resizeWindows() {
   $("#html").css("height", $(window).height()-125 + "px");
   $("#markdown").css("height", $(window).height()-125 + "px");
@@ -294,6 +302,7 @@ $(document).ready(function() {
       updatewordcount();
     },
     onkeydown: function(e) {
+      scrollToEditor();
     },
     onenter: function(e) {
     },
@@ -305,11 +314,11 @@ $(document).ready(function() {
       resizeWindows();
     },
     onfocus: function(e) {
-      if (!$("#mode-all").closest("li").hasClass("active")) {
-        $('html, body').animate({
-          scrollTop: $(".editor-container").offset().top-10
-        }, 100); 
-      }
+      scrollToEditor();
+      resizeWindows();
+    },
+    onmousedown: function(e) {
+      scrollToEditor();
       resizeWindows();
     },
     ontoolbarclick: function(e) {
@@ -318,34 +327,33 @@ $(document).ready(function() {
     }
   });
   $("#markdown").focus(function() {
-    if (!$("#mode-all").closest("li").hasClass("active")) {
-      $('html, body').animate({
-        scrollTop: $(".editor-container").offset().top-10
-      }, 100); 
-    }
+    scrollToEditor();
   })
   $("#markdown").keyup(function() {
     md2wys();
     wys2html();
     updatewordcount();
   });
+  $("#markdown").keydown(function() {
+    scrollToEditor();
+  })
+  $("#markdown").mousedown(function() {
+    scrollToEditor();
+  })
   $("#html").focus(function() {
-    if (!$("#mode-all").closest("li").hasClass("active")) {
-      $('html, body').animate({
-        scrollTop: $(".editor-container").offset().top-10
-      }, 100); 
-    }
+    scrollToEditor();
   })
   $("#html").keyup(function() {
     html2wys();
     wys2md();
-    updatewordcount();
-    if (!$("#mode-all").closest("li").hasClass("active")) {
-      $('html, body').animate({
-        scrollTop: $(".editor-container").offset().top
-      }, 100); 
-    }
+    scrollToEditor();
   });
+  $("#html").keydown(function() {
+    scrollToEditor();
+  })
+  $("#html").mousedown(function() {
+    scrollToEditor();
+  })
   $(".wsy-bold").click(function() {
     wrapSelection("<strong>", "</strong>") 
   });

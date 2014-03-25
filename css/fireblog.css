@@ -81,6 +81,8 @@ textarea {
 }
 .note-editor .note-editable {
   margin: 10px auto;
+  overflow-x: auto;
+  overflow-y: auto;
 /*  overflow-x: auto;
   overflow-y: auto;
   font-size: 22px;*/
