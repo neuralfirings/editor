@@ -10,10 +10,9 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 
     $("#savedoc").attr("disabled", false);
     $("#savedoc").text("Save");
-    // $("#openfile").show();
-    // $("#deletedoc").show();
 
     $(document).ready(function() {
+      updatewordcount();
       $(".showloggedin").show();
       $(".showloggedout").hide();
       $("#logininfo").html("<a>You are logged in as: " + user.email + "</a>");
@@ -96,24 +95,26 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
               $("#wysiwyg").html(value.html);
               $("#title").val(value.title);
               $("#title").data("key", key);
+              updatewordcount();
             });
           }); 
         }
         $("#titlelist").append("<li><hr></li>");
-        newentry = $("<li><a href='javascript:void(0)' id='newentry'><i>New Entry</i></a></li>");
-        $("#titlelist").append(newentry);
-        newentry.click(function() {
+        newdoc = $("<li><a href='javascript:void(0)' id='newdoc'><i>New Doc</i></a></li>");
+        $("#titlelist").append(newdoc);
+        newdoc.click(function() {
           clearEditor();
         })
       });
 
+      document.addEventListener("keydown", function(e) {
+        if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+          e.preventDefault();
+          $("#savedoc").click();
+        }
+      }, false);
 
       $("#savedoc").click(function() {
-        // if ($("#title").val() == "") {
-        //   title = "No Title :(";
-        // } else {
-        //   title = $("#title").val();
-        // }
         title = $("#title").val();
         doc = {title: title, html: $("#html").val(), md: $("#markdown").val()};
         $("#savedoc").html('Saving <i class="fa fa-spinner fa-spin"></i>');
@@ -144,8 +145,6 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
     console.log("user logged out");
     $("#savedoc").attr("disabled", true);
     $("#savedoc").text("Log In to Save");
-    // $("#openfile").hide();
-    // $("#deletedoc").hide();
     
     $(document).ready(function() {
       $(".showloggedout").show();
@@ -193,7 +192,11 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 });
 
 $(document).ready(function() {
+  updatewordcount();
   $(".make-tooltip").tooltip();
+
+  $("textarea").keydown(function(e) { checkTab(e); });
+
 
   $("#mode-html").click(function() {
     $("#mode-nav").find("li").removeClass("active");
@@ -249,6 +252,7 @@ $(document).ready(function() {
     onkeyup: function(e) {
       wys2md();
       wys2html();
+      updatewordcount();
     },
     onkeydown: function(e) {
     },
@@ -265,6 +269,20 @@ $(document).ready(function() {
       wys2html();
     }
   });
+  $("#markdown").keyup(function() {
+    md2wys();
+    wys2html();
+    updatewordcount();
+  });
+  $("#html").keyup(function() {
+    html2wys();
+    wys2md();
+    updatewordcount();
+  });
+  $(".wsy-bold").click(function() {
+    wrapSelection("<strong>", "</strong>") 
+  });
+
 
 
   function md2wys() {
@@ -289,22 +307,102 @@ $(document).ready(function() {
     $("#markdown").val(m);
   }
 
-
-  $("#markdown").keyup(function() {
-    md2wys();
-    wys2html();
-  });
-  $("#html").keyup(function() {
-    html2wys();
-    wys2md();
-  });
-
-
-  $(".wsy-bold").click(function() {
-    wrapSelection("<strong>", "</strong>") 
-  });
-
 });
+
+function updatewordcount() {
+  $("#wordcount").text(wordcount($("#wysiwyg")));
+}
+
+function wordcount(jq) {
+  function get_text(el) {
+    if(el != undefined) {
+      ret = "";
+      var length = el.childNodes.length;
+      for(var i = 0; i < length; i++) {
+          var node = el.childNodes[i];
+          if(node.nodeType != 8) {
+              ret += node.nodeType != 1 ? node.nodeValue : get_text(node);
+          }
+      }
+      return ret;
+    } else {
+      return false;
+    }
+  }
+
+  var words = get_text(jq[0]);
+  if(words) {
+    var count = words.split(/\s+/).length;
+    return count-1;
+  } else {
+    return 0;
+  }
+}
+
+
+// Set desired tab- defaults to four space softtab
+// Set desired tab- defaults to four space softtab
+var tab = "  ";
+function checkTab(evt) {
+  var t = evt.target;
+  var ss = t.selectionStart;
+  var se = t.selectionEnd;
+
+  // Tab key - insert tab expansion
+  if (evt.keyCode == 9) {
+      evt.preventDefault();
+             
+      // Special case of multi line selection
+      if (ss != se && t.value.slice(ss,se).indexOf("\n") != -1) {
+          // In case selection was not of entire lines (e.g. selection begins in the middle of a line)
+          // we ought to tab at the beginning as well as at the start of every following line.
+          var pre = t.value.slice(0,ss);
+          var sel = t.value.slice(ss,se).replace(/\n/g,"\n"+tab);
+          var post = t.value.slice(se,t.value.length);
+          t.value = pre.concat(tab).concat(sel).concat(post);
+                 
+          t.selectionStart = ss + tab.length;
+          t.selectionEnd = se + tab.length;
+      }
+             
+      // "Normal" case (no selection or selection on one line only)
+      else {
+          t.value = t.value.slice(0,ss).concat(tab).concat(t.value.slice(ss,t.value.length));
+          if (ss == se) {
+              t.selectionStart = t.selectionEnd = ss + tab.length;
+          }
+          else {
+              t.selectionStart = ss + tab.length;
+              t.selectionEnd = se + tab.length;
+          }
+      }
+  }
+         
+  // Backspace key - delete preceding tab expansion, if exists
+ else if (evt.keyCode==8 && t.value.slice(ss - 4,ss) == tab) {
+      evt.preventDefault();
+             
+      t.value = t.value.slice(0,ss - 4).concat(t.value.slice(ss,t.value.length));
+      t.selectionStart = t.selectionEnd = ss - tab.length;
+  }
+         
+  // Delete key - delete following tab expansion, if exists
+  else if (evt.keyCode==46 && t.value.slice(se,se + 4) == tab) {
+      evt.preventDefault();
+           
+      t.value = t.value.slice(0,ss).concat(t.value.slice(ss + 4,t.value.length));
+      t.selectionStart = t.selectionEnd = ss;
+  }
+  // Left/right arrow keys - move across the tab in one go
+  else if (evt.keyCode == 37 && t.value.slice(ss - 4,ss) == tab) {
+      evt.preventDefault();
+      t.selectionStart = t.selectionEnd = ss - 4;
+  }
+  else if (evt.keyCode == 39 && t.value.slice(ss,ss + 4) == tab) {
+      evt.preventDefault();
+      t.selectionStart = t.selectionEnd = ss + 4;
+  }
+}
 
 function clearEditor() {
   $("#title").val("");
@@ -312,6 +410,7 @@ function clearEditor() {
   $("#html").val("");
   $("#wysiwyg").html("");
   $("#markdown").val("");
+  updatewordcount();
 }
 
 function wrapSelection(tag1, tag2) {

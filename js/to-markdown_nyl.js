@@ -22,6 +22,12 @@ var toMarkdown = function(string) {
         return innerHTML ? '\n\n' + innerHTML + '\n' : '';
       }
     },
+    {
+      patterns: 'span',
+      replacement: function(str, attrs, innerHTML) {
+        return innerHTML ; //? '\n\n' + innerHTML + '' : '';
+      }
+    },
     // NANCY EDIT END
     {
       patterns: 'br',
