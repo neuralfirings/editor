@@ -207,9 +207,9 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 });
 
 function resizeWindows() {
-  $("#html").css("height", $(window).height()-130 + "px");
-  $("#markdown").css("height", $(window).height()-130 + "px");
-  $("#wysiwyg").css("height", $(window).height()-130-55 + "px");
+  $("#html").css("height", $(window).height()-115 + "px");
+  $("#markdown").css("height", $(window).height()-115 + "px");
+  $("#wysiwyg").css("height", $(window).height()-115-$(".note-toolbar").height()-16 + "px");
 }
 
 $( window ).resize(function() {

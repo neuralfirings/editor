@@ -92,6 +92,21 @@ textarea {
 .note-editor .note-toolbar .btn-group {
   margin-top: -5px;
 }
+.nav>li>a {
+  padding: 5px 10px;
+}
+.nav-tabs>li.active>a {
+  padding-top: 3px;
+  padding-bottom: 13px;
+}
+.nav-tabs>li.active>a:hover {
+  padding-top: 3px;
+  padding-bottom: 13px;
+}
+.nav-tabs>li>a:hover {
+  padding-top: 3px;
+  padding-bottom: 13px;
+}
 /*.tooltip-inner {
   width: 350px;
 }*/
