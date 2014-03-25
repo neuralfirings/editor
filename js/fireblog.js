@@ -201,7 +201,9 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 
 $(document).ready(function() {
   updatewordcount();
-  $(".make-tooltip").tooltip();
+  $("#tooltip-css").tooltip({
+    html: true
+  });
 
   $("textarea").keydown(function(e) { checkTab(e); });
 
@@ -255,7 +257,7 @@ $(document).ready(function() {
       //['help', ['help']] //no help button
     ],
     addid: "wysiwyg",
-    addclass: "general squished",
+    addclass: "general",
     addcontainerclass: "general",
     onkeyup: function(e) {
       wys2md();

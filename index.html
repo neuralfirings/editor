@@ -90,7 +90,7 @@
                 <select class="form-control" id="styleselect">
                   <option>Select Style</option>
                 </select>
-                <span class="make-tooltip"  data-toggle="tooltip" data-placement="bottom" title="To create a new style, save a new note with [CSS] in the title and edit your CSS in markdown. More info by clicking Open > [CSS] Template.">
+                <span id="tooltip-css" data-toggle="tooltip" data-placement="bottom" title="<div style='width: 150px'>To create a new style, save a new note with [CSS] in the title and edit your CSS in markdown. More info by clicking Open > [CSS] Template.</div>">
                   <i class="fa fa-info-circle"></i>
                 </span>
               </div>
@@ -122,24 +122,24 @@
       <div class="row" style="margin: 20px 0">
         <ul class="nav nav-tabs" id="mode-nav">
           <li><a href="javascript:void(0)" id="mode-md">Markdown</a></li>
-          <li><a href="javascript:void(0)" id="mode-wys">WYSIWYG</a></li>
+          <li class="active"><a href="javascript:void(0)" id="mode-wys">WYSIWYG</a></li>
           <li><a href="javascript:void(0)" id="mode-html">HTML</a></li>
-          <li class="active"><a href="javascript:void(0)" id="mode-all">All</a></li>
+          <li><a href="javascript:void(0)" id="mode-all">All</a></li>
         </ul>
       </div>
 
       <div class="row editor-container defaultstyle">
-        <div class="col-md-4x editor" style="margin: 0px auto">
+        <div class="col-md-4x editor" style="display:none;">
           <h2 class="general" style="margin: 10px auto">Markdown</h2>
-          <textarea id="markdown" class="squished general form-control col-md-5x"></textarea>
+          <textarea id="markdown" class=" general form-control col-md-5x"></textarea>
         </div>
         <div class="col-md-4x editor">
           <h2 class="general" style="margin: 10px auto">WYSIWYG</h2>
           <div id="wysiwyg-init"></div>
         </div>
-        <div class="col-md-4x editor">
-          <h2 class="general" style="margin: 10px auto">HTML</h2>
-          <textarea id="html" class="squished general form-control col-md-5x"></textarea>
+        <div class="col-md-4x editor" style=" display:none;">
+          <h2 class="general" style="margin: 10px auto;">HTML</h2>
+          <textarea id="html" class=" general form-control col-md-5x"></textarea>
         </div>
         <div class="general" style="margin: 10px auto; text-align: right; font-size: 16px; color: #CCC;">
           Word Count: <span id="wordcount"></span>
