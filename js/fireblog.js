@@ -95,7 +95,7 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
             } else {
               title = value.title; 
             }
-            title = $("<a href='#' class='titleselect' data-id='" + key + "'>" + title + "</a>")
+            title = $("<a href='javascript:void(0);' class='titleselect' data-id='" + key + "'>" + title + "</a>")
             titleholder = $("<li></li>")
             titleholder.append(title);
             $("#titlelist").prepend(titleholder);
