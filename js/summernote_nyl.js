@@ -1553,7 +1553,6 @@
             $dialog = oLayoutInfo.dialog(),
             $editable = oLayoutInfo.editable(),
             $codable = oLayoutInfo.codable();
-        console.log("hihi", $editable, event.target)
         window.editable = $editable
 
         // before command
@@ -1862,6 +1861,7 @@
                  '<li><a data-event="formatBlock" data-value="h3"><h3>' + lang.style.h3 + '</h3></a></li>' +
                  '<li><a data-event="formatBlock" data-value="h4"><h4>' + lang.style.h4 + '</h4></a></li>' +
                  '<li><a data-event="formatBlock" data-value="h5"><h5>' + lang.style.h5 + '</h5></a></li>' +
+
                  '<li><a data-event="formatBlock" data-value="h6"><h6>' + lang.style.h6 + '</h6></a></li>' +
                '</ul>';
       },

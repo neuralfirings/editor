@@ -25,7 +25,18 @@ var toMarkdown = function(string) {
     {
       patterns: 'span',
       replacement: function(str, attrs, innerHTML) {
-        return innerHTML ; //? '\n\n' + innerHTML + '' : '';
+        start = "";
+        end = "";
+        if (attrs.indexOf("font-weight: bold") != -1) {
+          start += "**";
+          end += "**";
+        }
+        
+        if (attrs.indexOf("font-style: italic") != -1) {
+          start = "_" + start;
+          end = end + "_";
+        }
+        return start + innerHTML + end; //? '\n\n' + innerHTML + '' : '';
       }
     },
     // NANCY EDIT END
