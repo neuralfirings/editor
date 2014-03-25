@@ -122,16 +122,23 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
         title = $("#title").val();
         doc = {title: title, html: $("#html").val(), md: $("#markdown").val()};
         $("#savedoc").html('Saving <i class="fa fa-spinner fa-spin"></i>');
+        $("body").css("background-color" , "#EEE");
         if($("#title").data("key") == "") { // new doc
           newkey = fb.child("users").child(user.id).push(doc, function() {
-            setTimeout(function(){$("#savedoc").text("Save");},1000);
+            setTimeout(function(){
+              $("#savedoc").text("Save");
+              $("body").css("background-color" , "#FFF");
+            },1000);
           });
           $("#title").data("key", newkey.name());
           fb.child("users").child(user.id).child(newkey.name()).child("modified").set(Firebase.ServerValue.TIMESTAMP);
           fb.child("users").child(user.id).child(newkey.name()).setPriority(Firebase.ServerValue.TIMESTAMP);
         } else { // old doc
           fb.child("users").child(user.id).child($("#title").data("key")).update(doc, function() {
-            setTimeout(function(){$("#savedoc").text("Save");},1000);
+            setTimeout(function(){
+              $("#savedoc").text("Save");
+              $("body").css("background-color" , "#FFF");
+            },1000);
           });
           fb.child("users").child(user.id).child($("#title").data("key")).child("modified").set(Firebase.ServerValue.TIMESTAMP);
           fb.child("users").child(user.id).child($("#title").data("key")).setPriority(Firebase.ServerValue.TIMESTAMP);
@@ -199,7 +206,18 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
   }
 });
 
+function resizeWindows() {
+  $("#html").css("height", $(window).height()-130 + "px");
+  $("#markdown").css("height", $(window).height()-130 + "px");
+  $("#wysiwyg").css("height", $(window).height()-130-55 + "px");
+}
+
+$( window ).resize(function() {
+  resizeWindows();
+});
+
 $(document).ready(function() {
+  resizeWindows();
   updatewordcount();
   $("#tooltip-css").tooltip({
     html: true
@@ -207,8 +225,9 @@ $(document).ready(function() {
 
   $("textarea").keydown(function(e) { checkTab(e); });
 
-
   $("#mode-html").click(function() {
+    resizeWindows();
+    $(".editor-heading").hide();
     $("#mode-nav").find("li").removeClass("active");
     $(this).closest("li").addClass("active");
     $("#wysiwyg").closest(".editor").hide();
@@ -218,6 +237,8 @@ $(document).ready(function() {
     // $("#html").closest(".editor").removeClass("col-md-4").addClass("col-md-8 col-md-offset-2");
   });
   $("#mode-md").click(function() {
+    resizeWindows();
+    $(".editor-heading").hide();
     $("#mode-nav").find("li").removeClass("active");
     $(this).closest("li").addClass("active");
     $("#wysiwyg").closest(".editor").hide();
@@ -227,6 +248,8 @@ $(document).ready(function() {
     // $("#markdown").closest(".editor").removeClass("col-md-4").addClass("col-md-8 col-md-offset-2");
   });
   $("#mode-wys").click(function() {
+    resizeWindows();
+    $(".editor-heading").hide();
     $("#mode-nav").find("li").removeClass("active");
     $(this).closest("li").addClass("active");
     $("#wysiwyg").closest(".editor").show();
@@ -236,6 +259,10 @@ $(document).ready(function() {
     // $("#wysiwyg").closest(".editor").removeClass("col-md-4").addClass("col-md-8 col-md-offset-2");
   });
   $("#mode-all").click(function() {
+    $("#html").css("height", "");
+    $("#wysiwyg").css("height", "");
+    $("#markdown").css("height", "");
+    $(".editor-heading").show();
     $("#mode-nav").find("li").removeClass("active");
     $(this).closest("li").addClass("active");
     $("#wysiwyg").closest(".editor").show();
@@ -259,6 +286,7 @@ $(document).ready(function() {
     addid: "wysiwyg",
     addclass: "general",
     addcontainerclass: "general",
+    // height: $(window).height()-130-56,
     onkeyup: function(e) {
       wys2md();
       wys2html();
@@ -273,21 +301,48 @@ $(document).ready(function() {
         wys2md();
         wys2html();
       })
+      resizeWindows();
+    },
+    onfocus: function(e) {
+      if (!$("#mode-all").closest("li").hasClass("active")) {
+        $('html, body').animate({
+          scrollTop: $(".editor-container").offset().top-10
+        }, 100); 
+      }
     },
     ontoolbarclick: function(e) {
       wys2md();
       wys2html();
     }
   });
+  $("#markdown").focus(function() {
+    if (!$("#mode-all").closest("li").hasClass("active")) {
+      $('html, body').animate({
+        scrollTop: $(".editor-container").offset().top-10
+      }, 100); 
+    }
+  })
   $("#markdown").keyup(function() {
     md2wys();
     wys2html();
     updatewordcount();
   });
+  $("#html").focus(function() {
+    if (!$("#mode-all").closest("li").hasClass("active")) {
+      $('html, body').animate({
+        scrollTop: $(".editor-container").offset().top-10
+      }, 100); 
+    }
+  })
   $("#html").keyup(function() {
     html2wys();
     wys2md();
     updatewordcount();
+    if (!$("#mode-all").closest("li").hasClass("active")) {
+      $('html, body').animate({
+        scrollTop: $(".editor-container").offset().top
+      }, 100); 
+    }
   });
   $(".wsy-bold").click(function() {
     wrapSelection("<strong>", "</strong>") 

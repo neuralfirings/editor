@@ -119,26 +119,25 @@
         </div>
       </div>
 
-      <div class="row" style="margin: 20px 0">
-        <ul class="nav nav-tabs" id="mode-nav">
+      <div class="row" style="margin-top:20px"></div>
+
+      <div class="row editor-container defaultstyle">
+        <ul class="nav nav-tabs general" style="margin: 0 auto; font-size: 14px" id="mode-nav">
           <li><a href="javascript:void(0)" id="mode-md">Markdown</a></li>
           <li class="active"><a href="javascript:void(0)" id="mode-wys">WYSIWYG</a></li>
           <li><a href="javascript:void(0)" id="mode-html">HTML</a></li>
           <li><a href="javascript:void(0)" id="mode-all">All</a></li>
         </ul>
-      </div>
-
-      <div class="row editor-container defaultstyle">
-        <div class="col-md-4x editor" style="display:none;">
-          <h2 class="general" style="margin: 10px auto">Markdown</h2>
+        <div class="col-md-4x editor editor-markdown" style="display:none;">
+          <h2 class="general editor-heading" style="margin: 10px auto; display: none">Markdown</h2>
           <textarea id="markdown" class=" general form-control col-md-5x"></textarea>
         </div>
-        <div class="col-md-4x editor">
-          <h2 class="general" style="margin: 10px auto">WYSIWYG</h2>
+        <div class="col-md-4x editor editor-wys">
+          <h2 class="general editor-heading" style="margin: 10px auto; display: none">WYSIWYG</h2>
           <div id="wysiwyg-init"></div>
         </div>
-        <div class="col-md-4x editor" style=" display:none;">
-          <h2 class="general" style="margin: 10px auto;">HTML</h2>
+        <div class="col-md-4x editor editor-html" style=" display:none;">
+          <h2 class="general editor-heading" style="margin: 10px auto; display: none">HTML</h2>
           <textarea id="html" class=" general form-control col-md-5x"></textarea>
         </div>
         <div class="general" style="margin: 10px auto; text-align: right; font-size: 16px; color: #CCC;">
