@@ -105,7 +105,12 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 
 
       $("#savedoc").click(function() {
-        doc = {title: $("#title").val(), html: $("#html").val(), md: $("#markdown").val()};
+        if ($("#title").val() == "") {
+          title = "No Title :(";
+        } else {
+          title = $("#title").val();
+        }
+        doc = {title: title, html: $("#html").val(), md: $("#markdown").val()};
         $("#savedoc").html('Saving <i class="fa fa-spinner fa-spin"></i>');
         if($("#title").data("key") == "") {
           newkey = fb.child("users").child(user.id).push(doc, function() {
