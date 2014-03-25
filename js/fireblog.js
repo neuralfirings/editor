@@ -3,7 +3,7 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
   if (error) {
     console.log(error);
   } else if (user) {
-    console.log('Loged in as User ID: ' + user.id + ', Provider: ' + user.provider);
+    console.log('Logged in as User ID: ' + user.id + ', Provider: ' + user.provider);
     $(".showloggedin").show();
     $(".showloggedout").hide();
     $("#loginform").hide();
@@ -72,12 +72,22 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
         $(".editor-container").removeClass().addClass("editor-container row").addClass(stylekey);
       });
 
+      // TITLE LIST
       userdata = new Firebase('https://nancy.firebaseio.com/users/' + user.id);
       userdata.on("value", function(data) {
         $("#titlelist").empty();
+
+        newdoc = $("<li><a href='javascript:void(0)' id='newdoc'><i>New Doc</i></a></li>");
+        $("#titlelist").append(newdoc);
+        $("#titlelist").prepend("<li><hr></li>");
+        newdoc.click(function() {
+          clearEditor();
+        })
+
         if(data.val() == null) {
-          $("#titlelist").append("<li id='emptylistnotice'><a>Nothing here yet</a></li>");
+          $("#titlelist").prepend("<li id='emptylistnotice'><a>Nothing here yet</a></li>");
         } else {
+          window.d = data.val();
           $.each(data.val(), function(key, value) {
             $("#emptylistnotice").remove();
             if (value.title == "") {
@@ -88,7 +98,7 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
             title = $("<a href='#' class='titleselect' data-id='" + key + "'>" + title + "</a>")
             titleholder = $("<li></li>")
             titleholder.append(title);
-            $("#titlelist").append(titleholder);
+            $("#titlelist").prepend(titleholder);
             title.click(function() {
               $("#html").val(value.html);
               $("#markdown").val(value.md);
@@ -99,12 +109,6 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
             });
           }); 
         }
-        $("#titlelist").append("<li><hr></li>");
-        newdoc = $("<li><a href='javascript:void(0)' id='newdoc'><i>New Doc</i></a></li>");
-        $("#titlelist").append(newdoc);
-        newdoc.click(function() {
-          clearEditor();
-        })
       });
 
       document.addEventListener("keydown", function(e) {
@@ -118,15 +122,19 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
         title = $("#title").val();
         doc = {title: title, html: $("#html").val(), md: $("#markdown").val()};
         $("#savedoc").html('Saving <i class="fa fa-spinner fa-spin"></i>');
-        if($("#title").data("key") == "") {
+        if($("#title").data("key") == "") { // new doc
           newkey = fb.child("users").child(user.id).push(doc, function() {
             setTimeout(function(){$("#savedoc").text("Save");},1000);
           });
           $("#title").data("key", newkey.name());
-        } else {
+          fb.child("users").child(user.id).child(newkey.name()).child("modified").set(Firebase.ServerValue.TIMESTAMP);
+          fb.child("users").child(user.id).child(newkey.name()).setPriority(Firebase.ServerValue.TIMESTAMP);
+        } else { // old doc
           fb.child("users").child(user.id).child($("#title").data("key")).update(doc, function() {
             setTimeout(function(){$("#savedoc").text("Save");},1000);
           });
+          fb.child("users").child(user.id).child($("#title").data("key")).child("modified").set(Firebase.ServerValue.TIMESTAMP);
+          fb.child("users").child(user.id).child($("#title").data("key")).setPriority(Firebase.ServerValue.TIMESTAMP);
         }
       });
       $("#deletedoc").click(function() {
