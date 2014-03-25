@@ -3,7 +3,11 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
   if (error) {
     console.log(error);
   } else if (user) {
-    console.log('User ID: ' + user.id + ', Provider: ' + user.provider);
+    console.log('Loged in as User ID: ' + user.id + ', Provider: ' + user.provider);
+    $(".showloggedin").show();
+    $(".showloggedout").hide();
+    $("#loginform").hide();
+
     $("#savedoc").attr("disabled", false);
     $("#savedoc").text("Save");
     // $("#openfile").show();
@@ -20,9 +24,11 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 
       styledata = new Firebase('https://nancy.firebaseio.com/styles/public');
       styledata.on("value", function(data) {
+        console.log(data.val());
         $("#styleselect").find(".styleoption").remove();
         $("head").find(".customstyles").remove();
         $.each(data.val(), function(key, value) {
+          key = key.replace(/[^a-zA-Z]/g, '');
           cssarr = value.css.split("}");
           cssnew = "";
           for (var i=0; i<cssarr.length-1; i++) { 
@@ -32,6 +38,35 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
           $("#styleselect").append(styleoption);
           $("<style class='customstyles' type='text/css'>" + cssnew + "</style>").appendTo("head");
         })
+      });
+      styleuserdata = new Firebase('https://nancy.firebaseio.com/users/' + user.id);
+      styleuserdata.on("value", function(data) {
+        $("#styleselect").find(".styleoption-private").remove();
+        $("head").find(".customstyles-private").remove();
+
+        if(data.val() == null) {
+          // new css template
+          styleuserdata.push({
+            title: "[CSS] Style Template", 
+            html: "/* You can create your own styles by placing [CSS]   */\n/*   into the title. Try it, edit this doc and       */\n/*   click save. You should see an option in the     */\n/*   style dropdown in the header to apply your      */\n/*   own style to the editors.                       */\n.general {\n  /* anything that applies to all your editors       */\n}\n#markdown {\n  /* stuff that's specific for the markdown editor   */\n}\n#html {\n  /* stuff that's specific for the html editor       */\n}\n#wysiwyg {\n  /* stuff that's specific for the wysiwyg editor    */\n}\n\n/* you can also do specific styling for html         */\n/*   elements. Only used in the wysiwyg editor.      */\np {\n}\na {\n}\nh1 {\n}\nh2 {\n}",
+            md: "/* You can create your own styles by placing [CSS]   */\n/*   into the title. Try it, edit this doc and       */\n/*   click save. You should see an option in the     */\n/*   style dropdown in the header to apply your      */\n/*   own style to the editors.                       */\n.general {\n  /* anything that applies to all your editors       */\n}\n#markdown {\n  /* stuff that's specific for the markdown editor   */\n}\n#html {\n  /* stuff that's specific for the html editor       */\n}\n#wysiwyg {\n  /* stuff that's specific for the wysiwyg editor    */\n}\n\n/* you can also do specific styling for html         */\n/*   elements. Only used in the wysiwyg editor.      */\np {\n}\na {\n}\nh1 {\n}\nh2 {\n}"
+          })
+        }
+        else {
+          $.each(data.val(), function(key, value) {
+            key = key.replace(/[^a-zA-Z]/g, '');
+            if (value.title.indexOf("[CSS]") != -1) { // IS CSS DEF FILE
+              cssarr = value.md.split("}");
+              cssnew = "";
+              for (var i=0; i<cssarr.length-1; i++) { 
+                cssnew += "." + key + " " + cssarr[i] + "}";
+              }
+              styleoption = $("<option class='styleoption styleoption-private' data-key='" + key + "' data-css='nothinghere' data-title='nothinghere'>" + value.title.replace("[CSS]", "[Private]") + "</option>")
+              $("#styleselect").append(styleoption);
+              $("<style class='customstyles customstyles-private' type='text/css'>" + cssnew + "</style>").appendTo("head");
+            }
+          })
+        }
       });
 
       $("#styleselect").change(function() {
@@ -109,7 +144,7 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
         $("#loginform").hide();
       });
 
-      $("#login-button").click(function() {
+      $("#login-button").click(function() {        
         // console.log($("#login-email").val(), $("#login-pw").val(), $("#login-remember").is(":checked"));
         auth.login('password', {
           email: $("#login-email").val(),
@@ -122,11 +157,16 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
         auth.createUser($("#signup-email").val(), $("#signup-pw").val(), function(error, user) {
           if (!error) {
             console.log('Created New User Id: ' + user.id + ', Email: ' + user.email);
+
             auth.login('password', {
               email: $("#signup-email").val(),
               password: $("#signup-pw").val(),
               rememberMe: $("#signup-remember").is(":checked")
             });
+            
+            $(".showloggedin").show();
+            $(".showloggedout").hide();
+            $("#signupform").hide();
           } else {
             console.log("Error: " + error);
           }
@@ -137,6 +177,8 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 });
 
 $(document).ready(function() {
+  $(".make-tooltip").tooltip();
+
   $("#mode-html").click(function() {
     $("#mode-nav").find("li").removeClass("active");
     $(this).closest("li").addClass("active");

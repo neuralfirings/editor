@@ -89,3 +89,6 @@ textarea {
 .note-editor .note-toolbar .btn-group {
   margin-top: -5px;
 }
+.tooltip-inner {
+  width: 350px;
+}
