@@ -365,6 +365,7 @@ $(document).ready(function() {
       ['style', ['bold', 'italic']],
       ['para', ['ul', 'ol']],
       ['insert', ['picture', 'video', 'link']], // no insert buttons
+      // ['view', ['fullscreen', 'codeview']],
       //['table', ['table']], // no table button
       //['help', ['help']] //no help button
     ],
@@ -411,6 +412,7 @@ $(document).ready(function() {
   });
   $("#markdown").focus(function() {
     scrollToEditor();
+    resizeWindows();
     hideBorder();
   })
   $("#markdown").keyup(function() {
@@ -420,9 +422,11 @@ $(document).ready(function() {
   });
   $("#markdown").keydown(function() {
     scrollToEditor();
+    resizeWindows();
   })
   $("#markdown").mousedown(function() {
     scrollToEditor();
+    resizeWindows();
   })
   $("#html").focusout(function() {
     console.log('f')
@@ -431,17 +435,19 @@ $(document).ready(function() {
   $("#html").focus(function() {
     scrollToEditor();
     hideBorder();
+    resizeWindows();
   })
   $("#html").keyup(function() {
     html2wys();
     wys2md();
-    scrollToEditor();
   });
   $("#html").keydown(function() {
     scrollToEditor();
+    resizeWindows();
   })
   $("#html").mousedown(function() {
     scrollToEditor();
+    resizeWindows();
   })
   $("#html").focusout(function() {
     showBorder();
