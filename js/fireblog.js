@@ -207,11 +207,9 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
 });
 
 function scrollToEditor() {
-  if (!$("#mode-all").closest("li").hasClass("active")) {
-    $('html, body').animate({
-      scrollTop: $(".editor-container").offset().top-50
-    }, 100); 
-  }
+  $('html, body').animate({
+    scrollTop: $(".editor-container").offset().top-50
+  }, 100); 
 }
 function showBorder() {
   $("#html").css("outline", "1px solid #DDD");
@@ -219,15 +217,27 @@ function showBorder() {
   $("#markdown").css("outline", "1px solid #DDD");
 }
 function hideBorder() {
-  $("#html").css("outline", "0px");
-  $("#wysiwyg").css("outline", "0px");
-  $("#markdown").css("outline", "0px");
+  if ($(".editor").hasClass("squishy")) {
+    $("#html").css("outline", "1px solid #DDD");
+    $("#wysiwyg").css("outline", "1px solid #DDD");
+    $("#markdown").css("outline", "1px solid #DDD");
+  } else {
+    // $("#html").css("outline", "0px");
+    $("#wysiwyg").css("outline", "0px");
+    $("#markdown").css("outline", "0px");
+}
 }
 
 function resizeWindows() {
-  $("#html").css("height", $(window).height()-125 + "px");
-  $("#markdown").css("height", $(window).height()-125 + "px");
-  $("#wysiwyg").css("height", $(window).height()-125-$(".note-toolbar").height()-16 + "px");
+  if ($(".editor").hasClass("squishy")) {
+    $("#html").css("height", $(window).height()-190 + "px");
+    $("#markdown").css("height", $(window).height()-190 + "px");
+    $("#wysiwyg").css("height", $(window).height()-147-$(".note-toolbar").height()-16 + "px");f
+  } else {
+    $("#html").css("height", $(window).height()-125 + "px");
+    $("#markdown").css("height", $(window).height()-125 + "px");
+    $("#wysiwyg").css("height", $(window).height()-125-$(".note-toolbar").height()-16 + "px");
+  }
 }
 
 function setUnscrollBodyTags() {
@@ -274,7 +284,29 @@ $(document).ready(function() {
 
   $("textarea").keydown(function(e) { checkTab(e); });
 
+  function squish() {
+    $(".editor").addClass("col-md-4 squishy").removeClass("general"); //.css("width", "auto");
+    mh = $("#markdown").height();
+    hh = $("#html").height();
+    $("#markdown").addClass("col-md-5").removeClass("general").css("margin-top", "53px");//.css("width", "auto");
+    $("#markdown").height(mh-54);
+    $("#html").addClass("col-md-5").removeClass("general").css("margin-top", "53px");//.css("width", "auto");
+    $("#html").height(hh-54);
+    $("#wysiwyg").closest(".editor").addClass("col-md-5");//.removeClass("general");
+    $("#wysiwyg").closest(".note-editor").removeClass("general");
+    $("#wysiwyg").closest(".note-editable").removeClass("general");
+  }
+  function unsquish() {
+    $(".editor").removeClass("col-md-4 squishy").addClass("general").css("margin", "0px auto"); //.css("width", "auto");
+    $("#markdown").removeClass("col-md-5").addClass("general").css("margin-top", "");//.css("width", "auto");
+    $("#html").removeClass("col-md-5").addClass("general").css("margin-top", "");//.css("width", "auto");
+    $("#wysiwyg").closest(".editor").removeClass("col-md-5");//.removeClass("general");
+    $("#wysiwyg").closest(".note-editor").addClass("general");
+    $("#wysiwyg").closest(".note-editable").addClass("general");
+  }
+
   $("#mode-html").click(function() {
+    unsquish();
     resizeWindows();
     $(".editor-heading").hide();
     $("#mode-nav").find("li").removeClass("active");
@@ -282,10 +314,11 @@ $(document).ready(function() {
     $("#wysiwyg").closest(".editor").hide();
     $("#markdown").closest(".editor").hide();
     $("#html").closest(".editor").show();
-    $("#html").removeClass("squished");
+    // $("#html").removeClass("squished");
     // $("#html").closest(".editor").removeClass("col-md-4").addClass("col-md-8 col-md-offset-2");
   });
   $("#mode-md").click(function() {
+    unsquish();
     resizeWindows();
     $(".editor-heading").hide();
     $("#mode-nav").find("li").removeClass("active");
@@ -293,10 +326,11 @@ $(document).ready(function() {
     $("#wysiwyg").closest(".editor").hide();
     $("#markdown").closest(".editor").show();
     $("#html").closest(".editor").hide();
-    $("#markdown").removeClass("squished");
+    // $("#markdown").removeClass("squished");
     // $("#markdown").closest(".editor").removeClass("col-md-4").addClass("col-md-8 col-md-offset-2");
   });
   $("#mode-wys").click(function() {
+    unsquish();
     resizeWindows();
     $(".editor-heading").hide();
     $("#mode-nav").find("li").removeClass("active");
@@ -304,7 +338,7 @@ $(document).ready(function() {
     $("#wysiwyg").closest(".editor").show();
     $("#markdown").closest(".editor").hide();
     $("#html").closest(".editor").hide();
-    $("#wysiwyg").removeClass("squished");
+    // $("#wysiwyg").removeClass("squished");
     // $("#wysiwyg").closest(".editor").removeClass("col-md-4").addClass("col-md-8 col-md-offset-2");
   });
   $("#mode-all").click(function() {
@@ -317,9 +351,11 @@ $(document).ready(function() {
     $("#wysiwyg").closest(".editor").show();
     $("#markdown").closest(".editor").show();
     $("#html").closest(".editor").show();
-    $("#wysiwyg").addClass("squished");
-    $("#html").addClass("squished");
-    $("#markdown").addClass("squished");
+    squish();
+    showBorder();
+    // $("#wysiwyg").addClass("squished");
+    // $("#html").addClass("squished");
+    // $("#markdown").addClass("squished");
     // $(".editor-container").find(".editor").removeClass("col-md-8 col-md-offset-2").addClass("col-md-4")
   });
 
