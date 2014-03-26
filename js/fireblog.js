@@ -128,7 +128,7 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
             setTimeout(function(){
               $("#savedoc").text("Save");
               $("body").css("opacity" , "1");
-            },1000);
+            },500);
           });
           $("#title").data("key", newkey.name());
           fb.child("users").child(user.id).child(newkey.name()).child("modified").set(Firebase.ServerValue.TIMESTAMP);
@@ -138,7 +138,7 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
             setTimeout(function(){
               $("#savedoc").text("Save");
               $("body").css("opacity" , "1");
-            },1000);
+            },500);
           });
           fb.child("users").child(user.id).child($("#title").data("key")).child("modified").set(Firebase.ServerValue.TIMESTAMP);
           fb.child("users").child(user.id).child($("#title").data("key")).setPriority(Firebase.ServerValue.TIMESTAMP);
@@ -206,18 +206,58 @@ var auth = new FirebaseSimpleLogin(fb, function(error, user) {
   }
 });
 
-function scrollToEditor () {
+function scrollToEditor() {
   if (!$("#mode-all").closest("li").hasClass("active")) {
     $('html, body').animate({
-      scrollTop: $(".editor-container").offset().top-10
+      scrollTop: $(".editor-container").offset().top-50
     }, 100); 
   }
+}
+function showBorder() {
+  $("#html").css("outline", "1px solid #DDD");
+  $("#wysiwyg").css("outline", "1px solid #DDD");
+  $("#markdown").css("outline", "1px solid #DDD");
+}
+function hideBorder() {
+  $("#html").css("outline", "0px");
+  $("#wysiwyg").css("outline", "0px");
+  $("#markdown").css("outline", "0px");
 }
 
 function resizeWindows() {
   $("#html").css("height", $(window).height()-125 + "px");
   $("#markdown").css("height", $(window).height()-125 + "px");
   $("#wysiwyg").css("height", $(window).height()-125-$(".note-toolbar").height()-16 + "px");
+}
+
+function setUnscrollBodyTags() {
+  $('.unscrollbody').on('DOMMouseScroll mousewheel', function(ev) {
+      var $this = $(this),
+          scrollTop = this.scrollTop,
+          scrollHeight = this.scrollHeight,
+          height = $this.height(),
+          delta = (ev.type == 'DOMMouseScroll' ?
+              ev.originalEvent.detail * -40 :
+              ev.originalEvent.wheelDelta),
+          up = delta > 0;
+
+      var prevent = function() {
+          ev.stopPropagation();
+          ev.preventDefault();
+          ev.returnValue = false;
+          return false;
+      }
+      
+      if (!up && -delta > scrollHeight - height - scrollTop) {
+          // Scrolling down, but this will take us past the bottom.
+          $this.scrollTop(scrollHeight);
+          return prevent();
+      } else if (up && delta > scrollTop) {
+          // Scrolling up, but this will take us past the top.
+          $this.scrollTop(0);
+          return prevent();
+      }
+  });
 }
 
 
@@ -293,7 +333,7 @@ $(document).ready(function() {
       //['help', ['help']] //no help button
     ],
     addid: "wysiwyg",
-    addclass: "general",
+    addclass: "general unscrollbody",
     addcontainerclass: "general",
     // height: $(window).height()-130-56,
     onkeyup: function(e) {
@@ -303,6 +343,7 @@ $(document).ready(function() {
     },
     onkeydown: function(e) {
       scrollToEditor();
+      hideBorder();
     },
     onenter: function(e) {
     },
@@ -311,14 +352,20 @@ $(document).ready(function() {
         wys2md();
         wys2html();
       })
+      $("#wysiwyg").focusout(function() {
+        showBorder();
+      })
       resizeWindows();
+      setUnscrollBodyTags();
     },
     onfocus: function(e) {
       scrollToEditor();
+      hideBorder();
       resizeWindows();
     },
     onmousedown: function(e) {
       scrollToEditor();
+      hideBorder();
       resizeWindows();
     },
     ontoolbarclick: function(e) {
@@ -328,6 +375,7 @@ $(document).ready(function() {
   });
   $("#markdown").focus(function() {
     scrollToEditor();
+    hideBorder();
   })
   $("#markdown").keyup(function() {
     md2wys();
@@ -340,8 +388,13 @@ $(document).ready(function() {
   $("#markdown").mousedown(function() {
     scrollToEditor();
   })
+  $("#html").focusout(function() {
+    console.log('f')
+    showBorder();
+  })
   $("#html").focus(function() {
     scrollToEditor();
+    hideBorder();
   })
   $("#html").keyup(function() {
     html2wys();
@@ -353,6 +406,9 @@ $(document).ready(function() {
   })
   $("#html").mousedown(function() {
     scrollToEditor();
+  })
+  $("#html").focusout(function() {
+    showBorder();
   })
   $(".wsy-bold").click(function() {
     wrapSelection("<strong>", "</strong>") 

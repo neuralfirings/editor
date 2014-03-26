@@ -18,10 +18,10 @@ textarea {
 }
 #wysiwyg {
   padding: 0px;
-  padding-bottom: 200px;
+  /*padding-bottom: 200px;*/
   border: 0px;
   box-shadow: 0 0 0 0;
-  /*outline:1px solid #DDD;*/
+  outline:1px solid #DDD;
   outline-offset:10px;
   height: 546px;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -30,7 +30,7 @@ textarea {
 #html {
   margin: 20px auto;
   padding: 0px;
-  padding-bottom: 200px;
+  /*padding-bottom: 200px;*/
   border: 0px;
   box-shadow: 0 0 0 0;
   outline:1px solid #DDD;
@@ -46,7 +46,7 @@ textarea {
 #markdown {
   margin: 20px auto;
   padding: 0px;
-  padding-bottom: 200px;
+  /*padding-bottom: 200px;*/
   border: 0px;
   box-shadow: 0 0 0 0;
   outline:1px solid #DDD;
@@ -76,8 +76,8 @@ textarea {
   border-radius: 4px;
   margin: 20px auto;
   border: 0;
-  outline-offset: 10px;
-  outline: solid 1px #DDD;
+/*  outline-offset: 10px;
+  outline: solid 1px #DDD;*/
 }
 .note-editor .note-editable {
   margin: 10px auto;
