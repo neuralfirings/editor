@@ -285,24 +285,28 @@ $(document).ready(function() {
   $("textarea").keydown(function(e) { checkTab(e); });
 
   function squish() {
-    $(".editor").addClass("col-md-4 squishy").removeClass("general"); //.css("width", "auto");
+    $(".editor").addClass("col-md-6 squishy").removeClass("general"); //.css("width", "auto");
     mh = $("#markdown").height();
     hh = $("#html").height();
-    $("#markdown").addClass("col-md-5").removeClass("general").css("margin-top", "53px");//.css("width", "auto");
+    $("#markdown").addClass("col-md-6").removeClass("general").css("margin-top", "53px");//.css("width", "auto");
     $("#markdown").height(mh-54);
     $("#html").addClass("col-md-5").removeClass("general").css("margin-top", "53px");//.css("width", "auto");
     $("#html").height(hh-54);
-    $("#wysiwyg").closest(".editor").addClass("col-md-5");//.removeClass("general");
+    $(".editor-html").hide();
+    $("#wysiwyg").closest(".editor").addClass("col-md-6");//.removeClass("general");
     $("#wysiwyg").closest(".note-editor").removeClass("general");
     $("#wysiwyg").closest(".note-editable").removeClass("general");
+    $(".note-code").show();
   }
   function unsquish() {
-    $(".editor").removeClass("col-md-4 squishy").addClass("general").css("margin", "0px auto"); //.css("width", "auto");
-    $("#markdown").removeClass("col-md-5").addClass("general").css("margin-top", "");//.css("width", "auto");
+    $(".editor").removeClass("col-md-6 squishy").addClass("general").css("margin", "0px auto"); //.css("width", "auto");
+    $("#markdown").removeClass("col-md-6").addClass("general").css("margin-top", "");//.css("width", "auto");
     $("#html").removeClass("col-md-5").addClass("general").css("margin-top", "");//.css("width", "auto");
-    $("#wysiwyg").closest(".editor").removeClass("col-md-5");//.removeClass("general");
+    $(".editor-html").show();
+    $("#wysiwyg").closest(".editor").removeClass("col-md-6");//.removeClass("general");
     $("#wysiwyg").closest(".note-editor").addClass("general");
     $("#wysiwyg").closest(".note-editable").addClass("general");
+    $(".note-code").hide();
   }
 
   $("#mode-html").click(function() {
@@ -365,6 +369,7 @@ $(document).ready(function() {
       ['style', ['bold', 'italic']],
       ['para', ['ul', 'ol']],
       ['insert', ['picture', 'video', 'link']], // no insert buttons
+      ['code', ['codeview']]
       // ['view', ['fullscreen', 'codeview']],
       //['table', ['table']], // no table button
       //['help', ['help']] //no help button
@@ -394,6 +399,7 @@ $(document).ready(function() {
       })
       resizeWindows();
       setUnscrollBodyTags();
+      $(".note-code").hide();
     },
     onfocus: function(e) {
       scrollToEditor();
